@@ -16,6 +16,12 @@ import SuppliersPage from './pages/SuppliersPage';
 import MaintenancePage from './pages/MaintenancePage';
 import WorkOrdersPage from './pages/WorkOrdersPage';
 import VoyagesPage from './pages/VoyagesPage';
+import LogbookPage from './pages/LogbookPage';
+import EngineLogPage from './pages/EngineLogPage';
+import FuelManagementPage from './pages/FuelManagementPage';
+import PSCPage from './pages/PSCPage';
+import SafetyPage from './pages/SafetyPage';
+import IncidentsPage from './pages/IncidentsPage';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import MockModeIndicator from './components/MockModeIndicator';
@@ -62,6 +68,12 @@ function App() {
           <Route path="maintenance" element={<MaintenancePage />} />
           <Route path="maintenance/work-orders" element={<WorkOrdersPage />} />
           <Route path="voyages" element={<VoyagesPage />} />
+          <Route path="logbook" element={<LogbookPage />} />
+          <Route path="engine-log" element={<EngineLogPage />} />
+          <Route path="fuel-management" element={<FuelManagementPage />} />
+          <Route path="psc" element={<PSCPage />} />
+          <Route path="safety" element={<SafetyPage />} />
+          <Route path="incidents" element={<IncidentsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -16,6 +16,12 @@ import {
   mockMaintenanceTasks,
   mockMaintenanceWorkOrders,
   mockVoyages,
+  mockLogbookEntries,
+  mockEngineLogs,
+  mockFuelConsumptions,
+  mockPSCChecklists,
+  mockSafetyDrills,
+  mockIncidents,
   delay,
 } from './mockData';
 
@@ -77,6 +83,26 @@ export const mockApi = {
     };
     mockVessels.push(newVessel);
     return newVessel;
+  },
+
+  async updateVessel(id: string, data: any) {
+    await delay(500);
+    const vesselIndex = mockVessels.findIndex((v) => v.id === id);
+    if (vesselIndex === -1) throw new Error('Vessel not found');
+    mockVessels[vesselIndex] = {
+      ...mockVessels[vesselIndex],
+      ...data,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockVessels[vesselIndex];
+  },
+
+  async deleteVessel(id: string) {
+    await delay(500);
+    const vesselIndex = mockVessels.findIndex((v) => v.id === id);
+    if (vesselIndex === -1) throw new Error('Vessel not found');
+    mockVessels.splice(vesselIndex, 1);
+    return { success: true };
   },
 
   // Categories
@@ -319,12 +345,43 @@ export const mockApi = {
       ...data,
       quantity: data.quantity || 0,
       vessel: mockVessels.find((v) => v.id === data.vesselId),
-      location: null,
+      location: data.locationId ? mockInventoryLocations.find((l) => l.id === data.locationId) : null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
     mockInventoryItems.push(newItem);
     return newItem;
+  },
+
+  async updateInventoryItem(id: string, data: any) {
+    await delay(500);
+    const itemIndex = mockInventoryItems.findIndex((i) => i.id === id);
+    if (itemIndex === -1) throw new Error('Inventory item not found');
+    mockInventoryItems[itemIndex] = {
+      ...mockInventoryItems[itemIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockInventoryItems[itemIndex].vessel,
+      location: data.locationId ? mockInventoryLocations.find((l) => l.id === data.locationId) : (data.locationId === null ? null : mockInventoryItems[itemIndex].location),
+      updatedAt: new Date().toISOString(),
+    };
+    return mockInventoryItems[itemIndex];
+  },
+
+  async deleteInventoryItem(id: string) {
+    await delay(500);
+    const itemIndex = mockInventoryItems.findIndex((i) => i.id === id);
+    if (itemIndex === -1) throw new Error('Inventory item not found');
+    mockInventoryItems.splice(itemIndex, 1);
+    return { success: true };
+  },
+
+  async getInventoryLocations(vesselId?: string) {
+    await delay(300);
+    let locations = mockInventoryLocations;
+    if (vesselId) {
+      locations = locations.filter((l) => l.vesselId === vesselId);
+    }
+    return locations;
   },
 
   async getLowStockItems(vesselId?: string) {
@@ -446,6 +503,79 @@ export const mockApi = {
   },
 
   // Maintenance
+  async getMaintenanceTasks(vesselId?: string) {
+    await delay(400);
+    let tasks = mockMaintenanceTasks;
+    if (vesselId) {
+      tasks = tasks.filter((t) => t.vesselId === vesselId);
+    }
+    return tasks.map((task) => ({
+      ...task,
+      vessel: mockVessels.find((v) => v.id === task.vesselId),
+    }));
+  },
+
+  async getMaintenanceTask(id: string) {
+    await delay(300);
+    const task = mockMaintenanceTasks.find((t) => t.id === id);
+    if (!task) throw new Error('Maintenance task not found');
+    return {
+      ...task,
+      vessel: mockVessels.find((v) => v.id === task.vesselId),
+    };
+  },
+
+  async createMaintenanceTask(data: any) {
+    await delay(500);
+    const newTask = {
+      id: String(mockMaintenanceTasks.length + 1),
+      ...data,
+      status: data.status || 'PENDING',
+      priority: data.priority || 'MEDIUM',
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockMaintenanceTasks.push(newTask);
+    return newTask;
+  },
+
+  async updateMaintenanceTask(id: string, data: any) {
+    await delay(500);
+    const taskIndex = mockMaintenanceTasks.findIndex((t) => t.id === id);
+    if (taskIndex === -1) throw new Error('Maintenance task not found');
+    mockMaintenanceTasks[taskIndex] = {
+      ...mockMaintenanceTasks[taskIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockMaintenanceTasks[taskIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockMaintenanceTasks[taskIndex];
+  },
+
+  async deleteMaintenanceTask(id: string) {
+    await delay(500);
+    const taskIndex = mockMaintenanceTasks.findIndex((t) => t.id === id);
+    if (taskIndex === -1) throw new Error('Maintenance task not found');
+    mockMaintenanceTasks.splice(taskIndex, 1);
+    return { success: true };
+  },
+
+  async getOverdueMaintenanceTasks(vesselId?: string) {
+    await delay(400);
+    const today = new Date();
+    let tasks = mockMaintenanceTasks.filter((t) => {
+      const dueDate = new Date(t.dueDate);
+      return dueDate < today && t.status !== 'COMPLETED';
+    });
+    if (vesselId) {
+      tasks = tasks.filter((t) => t.vesselId === vesselId);
+    }
+    return tasks.map((task) => ({
+      ...task,
+      vessel: mockVessels.find((v) => v.id === task.vesselId),
+    }));
+  },
   async getMaintenanceTasks(vesselId?: string, status?: string) {
     await delay(400);
     let tasks = mockMaintenanceTasks;
@@ -515,6 +645,411 @@ export const mockApi = {
     const voyage = mockVoyages.find((v) => v.id === id);
     if (!voyage) throw new Error('Voyage not found');
     return voyage;
+  },
+
+  // Logbook
+  async getLogbookEntries(vesselId?: string, startDate?: string, endDate?: string) {
+    await delay(400);
+    let entries = mockLogbookEntries;
+    if (vesselId) {
+      entries = entries.filter((e) => e.vesselId === vesselId);
+    }
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      entries = entries.filter((e) => {
+        const entryDate = new Date(e.entryDate);
+        return entryDate >= start && entryDate <= end;
+      });
+    }
+    return entries.map((entry) => ({
+      ...entry,
+      vessel: mockVessels.find((v) => v.id === entry.vesselId),
+      officer: mockUsers.find((u) => u.id === entry.officerId),
+      captain: entry.captainId ? mockUsers.find((u) => u.id === entry.captainId) : null,
+    }));
+  },
+
+  async getLogbookEntry(id: string) {
+    await delay(300);
+    const entry = mockLogbookEntries.find((e) => e.id === id);
+    if (!entry) throw new Error('Logbook entry not found');
+    return {
+      ...entry,
+      vessel: mockVessels.find((v) => v.id === entry.vesselId),
+      officer: mockUsers.find((u) => u.id === entry.officerId),
+      captain: entry.captainId ? mockUsers.find((u) => u.id === entry.captainId) : null,
+    };
+  },
+
+  async createLogbookEntry(data: any) {
+    await delay(500);
+    const newEntry = {
+      id: String(mockLogbookEntries.length + 1),
+      ...data,
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      officer: mockUsers.find((u) => u.id === data.officerId),
+      captain: null,
+      isSigned: false,
+      signedAt: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockLogbookEntries.push(newEntry);
+    return newEntry;
+  },
+
+  async updateLogbookEntry(id: string, data: any) {
+    await delay(500);
+    const entryIndex = mockLogbookEntries.findIndex((e) => e.id === id);
+    if (entryIndex === -1) throw new Error('Logbook entry not found');
+    mockLogbookEntries[entryIndex] = {
+      ...mockLogbookEntries[entryIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockLogbookEntries[entryIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockLogbookEntries[entryIndex];
+  },
+
+  async deleteLogbookEntry(id: string) {
+    await delay(500);
+    const entryIndex = mockLogbookEntries.findIndex((e) => e.id === id);
+    if (entryIndex === -1) throw new Error('Logbook entry not found');
+    mockLogbookEntries.splice(entryIndex, 1);
+    return { success: true };
+  },
+
+  async signLogbookEntry(id: string, captainId: string) {
+    await delay(500);
+    const entryIndex = mockLogbookEntries.findIndex((e) => e.id === id);
+    if (entryIndex === -1) throw new Error('Logbook entry not found');
+    mockLogbookEntries[entryIndex].isSigned = true;
+    mockLogbookEntries[entryIndex].captainId = captainId;
+    mockLogbookEntries[entryIndex].captain = mockUsers.find((u) => u.id === captainId);
+    mockLogbookEntries[entryIndex].signedAt = new Date().toISOString();
+    mockLogbookEntries[entryIndex].updatedAt = new Date().toISOString();
+    return mockLogbookEntries[entryIndex];
+  },
+
+  // Engine Log
+  async getEngineLogs(vesselId?: string, startDate?: string, endDate?: string) {
+    await delay(400);
+    let logs = mockEngineLogs;
+    if (vesselId) {
+      logs = logs.filter((l) => l.vesselId === vesselId);
+    }
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      logs = logs.filter((l) => {
+        const logDate = new Date(l.logDate);
+        return logDate >= start && logDate <= end;
+      });
+    }
+    return logs.map((log) => ({
+      ...log,
+      vessel: mockVessels.find((v) => v.id === log.vesselId),
+      engineer: mockUsers.find((u) => u.id === log.engineerId),
+    }));
+  },
+
+  async getEngineLog(id: string) {
+    await delay(300);
+    const log = mockEngineLogs.find((l) => l.id === id);
+    if (!log) throw new Error('Engine log not found');
+    return {
+      ...log,
+      vessel: mockVessels.find((v) => v.id === log.vesselId),
+      engineer: mockUsers.find((u) => u.id === log.engineerId),
+    };
+  },
+
+  async createEngineLog(data: any) {
+    await delay(500);
+    const newLog = {
+      id: String(mockEngineLogs.length + 1),
+      ...data,
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      engineer: mockUsers.find((u) => u.id === data.engineerId),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockEngineLogs.push(newLog);
+    return newLog;
+  },
+
+  async updateEngineLog(id: string, data: any) {
+    await delay(500);
+    const logIndex = mockEngineLogs.findIndex((l) => l.id === id);
+    if (logIndex === -1) throw new Error('Engine log not found');
+    mockEngineLogs[logIndex] = {
+      ...mockEngineLogs[logIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockEngineLogs[logIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockEngineLogs[logIndex];
+  },
+
+  async deleteEngineLog(id: string) {
+    await delay(500);
+    const logIndex = mockEngineLogs.findIndex((l) => l.id === id);
+    if (logIndex === -1) throw new Error('Engine log not found');
+    mockEngineLogs.splice(logIndex, 1);
+    return { success: true };
+  },
+
+  // Fuel Management
+  async getFuelConsumptions(vesselId?: string, startDate?: string, endDate?: string) {
+    await delay(400);
+    let consumptions = mockFuelConsumptions;
+    if (vesselId) {
+      consumptions = consumptions.filter((f) => f.vesselId === vesselId);
+    }
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      consumptions = consumptions.filter((f) => {
+        const opDate = new Date(f.operationDate);
+        return opDate >= start && opDate <= end;
+      });
+    }
+    return consumptions.map((fuel) => ({
+      ...fuel,
+      vessel: mockVessels.find((v) => v.id === fuel.vesselId),
+      recordedBy: mockUsers.find((u) => u.id === fuel.recordedById),
+    }));
+  },
+
+  async getFuelConsumption(id: string) {
+    await delay(300);
+    const fuel = mockFuelConsumptions.find((f) => f.id === id);
+    if (!fuel) throw new Error('Fuel consumption not found');
+    return {
+      ...fuel,
+      vessel: mockVessels.find((v) => v.id === fuel.vesselId),
+      recordedBy: mockUsers.find((u) => u.id === fuel.recordedById),
+    };
+  },
+
+  async createFuelConsumption(data: any) {
+    await delay(500);
+    const newFuel = {
+      id: String(mockFuelConsumptions.length + 1),
+      ...data,
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      recordedBy: mockUsers.find((u) => u.id === data.recordedById),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockFuelConsumptions.push(newFuel);
+    return newFuel;
+  },
+
+  async updateFuelConsumption(id: string, data: any) {
+    await delay(500);
+    const fuelIndex = mockFuelConsumptions.findIndex((f) => f.id === id);
+    if (fuelIndex === -1) throw new Error('Fuel consumption not found');
+    mockFuelConsumptions[fuelIndex] = {
+      ...mockFuelConsumptions[fuelIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockFuelConsumptions[fuelIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockFuelConsumptions[fuelIndex];
+  },
+
+  async deleteFuelConsumption(id: string) {
+    await delay(500);
+    const fuelIndex = mockFuelConsumptions.findIndex((f) => f.id === id);
+    if (fuelIndex === -1) throw new Error('Fuel consumption not found');
+    mockFuelConsumptions.splice(fuelIndex, 1);
+    return { success: true };
+  },
+
+  // PSC
+  async getPSCChecklists(vesselId?: string) {
+    await delay(400);
+    let checklists = mockPSCChecklists;
+    if (vesselId) {
+      checklists = checklists.filter((c) => c.vesselId === vesselId);
+    }
+    return checklists.map((psc) => ({
+      ...psc,
+      vessel: mockVessels.find((v) => v.id === psc.vesselId),
+      preparedBy: mockUsers.find((u) => u.id === psc.preparedById),
+    }));
+  },
+
+  async getPSCChecklist(id: string) {
+    await delay(300);
+    const psc = mockPSCChecklists.find((c) => c.id === id);
+    if (!psc) throw new Error('PSC checklist not found');
+    return {
+      ...psc,
+      vessel: mockVessels.find((v) => v.id === psc.vesselId),
+      preparedBy: mockUsers.find((u) => u.id === psc.preparedById),
+    };
+  },
+
+  async createPSCChecklist(data: any) {
+    await delay(500);
+    const newPSC = {
+      id: String(mockPSCChecklists.length + 1),
+      ...data,
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      preparedBy: mockUsers.find((u) => u.id === data.preparedById),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockPSCChecklists.push(newPSC);
+    return newPSC;
+  },
+
+  async updatePSCChecklist(id: string, data: any) {
+    await delay(500);
+    const pscIndex = mockPSCChecklists.findIndex((c) => c.id === id);
+    if (pscIndex === -1) throw new Error('PSC checklist not found');
+    mockPSCChecklists[pscIndex] = {
+      ...mockPSCChecklists[pscIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockPSCChecklists[pscIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockPSCChecklists[pscIndex];
+  },
+
+  async deletePSCChecklist(id: string) {
+    await delay(500);
+    const pscIndex = mockPSCChecklists.findIndex((c) => c.id === id);
+    if (pscIndex === -1) throw new Error('PSC checklist not found');
+    mockPSCChecklists.splice(pscIndex, 1);
+    return { success: true };
+  },
+
+  // Safety
+  async getSafetyDrills(vesselId?: string) {
+    await delay(400);
+    let drills = mockSafetyDrills;
+    if (vesselId) {
+      drills = drills.filter((d) => d.vesselId === vesselId);
+    }
+    return drills.map((drill) => ({
+      ...drill,
+      vessel: mockVessels.find((v) => v.id === drill.vesselId),
+      conductedBy: mockUsers.find((u) => u.id === drill.conductedById),
+    }));
+  },
+
+  async getSafetyDrill(id: string) {
+    await delay(300);
+    const drill = mockSafetyDrills.find((d) => d.id === id);
+    if (!drill) throw new Error('Safety drill not found');
+    return {
+      ...drill,
+      vessel: mockVessels.find((v) => v.id === drill.vesselId),
+      conductedBy: mockUsers.find((u) => u.id === drill.conductedById),
+    };
+  },
+
+  async createSafetyDrill(data: any) {
+    await delay(500);
+    const newDrill = {
+      id: String(mockSafetyDrills.length + 1),
+      ...data,
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      conductedBy: mockUsers.find((u) => u.id === data.conductedById),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockSafetyDrills.push(newDrill);
+    return newDrill;
+  },
+
+  async updateSafetyDrill(id: string, data: any) {
+    await delay(500);
+    const drillIndex = mockSafetyDrills.findIndex((d) => d.id === id);
+    if (drillIndex === -1) throw new Error('Safety drill not found');
+    mockSafetyDrills[drillIndex] = {
+      ...mockSafetyDrills[drillIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockSafetyDrills[drillIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockSafetyDrills[drillIndex];
+  },
+
+  async deleteSafetyDrill(id: string) {
+    await delay(500);
+    const drillIndex = mockSafetyDrills.findIndex((d) => d.id === id);
+    if (drillIndex === -1) throw new Error('Safety drill not found');
+    mockSafetyDrills.splice(drillIndex, 1);
+    return { success: true };
+  },
+
+  // Incidents
+  async getIncidents(vesselId?: string) {
+    await delay(400);
+    let incidents = mockIncidents;
+    if (vesselId) {
+      incidents = incidents.filter((i) => i.vesselId === vesselId);
+    }
+    return incidents.map((incident) => ({
+      ...incident,
+      vessel: mockVessels.find((v) => v.id === incident.vesselId),
+      reportedBy: mockUsers.find((u) => u.id === incident.reportedById),
+      investigatedBy: incident.investigatedById ? mockUsers.find((u) => u.id === incident.investigatedById) : null,
+    }));
+  },
+
+  async getIncident(id: string) {
+    await delay(300);
+    const incident = mockIncidents.find((i) => i.id === id);
+    if (!incident) throw new Error('Incident not found');
+    return {
+      ...incident,
+      vessel: mockVessels.find((v) => v.id === incident.vesselId),
+      reportedBy: mockUsers.find((u) => u.id === incident.reportedById),
+      investigatedBy: incident.investigatedById ? mockUsers.find((u) => u.id === incident.investigatedById) : null,
+    };
+  },
+
+  async createIncident(data: any) {
+    await delay(500);
+    const newIncident = {
+      id: String(mockIncidents.length + 1),
+      ...data,
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      reportedBy: mockUsers.find((u) => u.id === data.reportedById),
+      investigatedBy: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockIncidents.push(newIncident);
+    return newIncident;
+  },
+
+  async updateIncident(id: string, data: any) {
+    await delay(500);
+    const incidentIndex = mockIncidents.findIndex((i) => i.id === id);
+    if (incidentIndex === -1) throw new Error('Incident not found');
+    mockIncidents[incidentIndex] = {
+      ...mockIncidents[incidentIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockIncidents[incidentIndex].vessel,
+      investigatedBy: data.investigatedById ? mockUsers.find((u) => u.id === data.investigatedById) : mockIncidents[incidentIndex].investigatedBy,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockIncidents[incidentIndex];
+  },
+
+  async deleteIncident(id: string) {
+    await delay(500);
+    const incidentIndex = mockIncidents.findIndex((i) => i.id === id);
+    if (incidentIndex === -1) throw new Error('Incident not found');
+    mockIncidents.splice(incidentIndex, 1);
+    return { success: true };
   },
 
   // Analytics

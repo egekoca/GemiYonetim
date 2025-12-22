@@ -188,6 +188,20 @@ const createMockApi = () => {
         const id = path.split('/')[1];
         return { data: await mockApi.getVoyage(id) };
       }
+      if (path === 'logbook') {
+        const vesselId = queryParams.vesselId;
+        const startDate = queryParams.startDate;
+        const endDate = queryParams.endDate;
+        return { data: await mockApi.getLogbookEntries(vesselId, startDate, endDate) };
+      }
+      if (path.startsWith('logbook/')) {
+        const parts = path.split('/');
+        const id = parts[1];
+        if (parts[2] === 'sign') {
+          return { data: await mockApi.signLogbookEntry(id, '1') };
+        }
+        return { data: await mockApi.getLogbookEntry(id) };
+      }
       if (path === 'analytics/dashboard') {
         const vesselId = queryParams.vesselId;
         return { data: await mockApi.getDashboardKPIs(vesselId) };
@@ -226,17 +240,28 @@ const createMockApi = () => {
       if (path === 'vessels') {
         return { data: await mockApi.createVessel(data) };
       }
+      if (path.startsWith('vessels/')) {
+        const parts = path.split('/');
+        const id = parts[1];
+        if (parts.length === 2) {
+          // PUT /vessels/:id
+          return { data: await mockApi.updateVessel(id, data) };
+        }
+      }
       if (path === 'documents') {
         // For file upload, data will be FormData
-        const formData = data;
-        const documentData = {
-          title: formData.get('title') || 'Untitled',
-          description: formData.get('description') || '',
-          vesselId: formData.get('vesselId') || '',
-          categoryId: formData.get('categoryId') || '',
-        };
-        const file = formData.get('file') as File;
-        return { data: await mockApi.createDocument(documentData, file) };
+        if (data instanceof FormData) {
+          const documentData = {
+            title: data.get('title') || 'Untitled',
+            description: data.get('description') || '',
+            vesselId: data.get('vesselId') || '',
+            categoryId: data.get('categoryId') || '',
+          };
+          const file = data.get('file') as File;
+          return { data: await mockApi.createDocument(documentData, file) };
+        }
+        // Regular POST with JSON
+        return { data: await mockApi.createDocument(data, null) };
       }
       if (path.includes('/approve')) {
         const id = path.split('/')[1];
@@ -255,13 +280,91 @@ const createMockApi = () => {
       if (path === 'inventory/transactions') {
         return { data: await mockApi.createInventoryTransaction(data, '1') };
       }
+      if (path === 'maintenance/tasks') {
+        return { data: await mockApi.createMaintenanceTask(data) };
+      }
+      if (path === 'voyages') {
+        return { data: await mockApi.createVoyage(data) };
+      }
+      if (path === 'procurement/requests') {
+        return { data: await mockApi.createProcurementRequest(data) };
+      }
+      if (path === 'logbook') {
+        return { data: await mockApi.createLogbookEntry(data) };
+      }
+      if (path === 'engine-log') {
+        return { data: await mockApi.createEngineLog(data) };
+      }
+      if (path === 'fuel-management') {
+        return { data: await mockApi.createFuelConsumption(data) };
+      }
+      if (path === 'psc') {
+        return { data: await mockApi.createPSCChecklist(data) };
+      }
+      if (path === 'safety') {
+        return { data: await mockApi.createSafetyDrill(data) };
+      }
+      if (path === 'incidents') {
+        return { data: await mockApi.createIncident(data) };
+      }
       
       throw new Error(`Mock API: Route not found - ${path} (original URL: ${url})`);
     },
     put: async (url: string, data?: any) => {
       const normalizedUrl = normalizePath(url);
       const path = normalizedUrl.split('?')[0];
+
+      console.log(`Mock API PUT: path=${path}, data=${JSON.stringify(data)}, originalUrl=${url}`);
+
       // Mock update operations
+      if (path.startsWith('crew/members/')) {
+        const id = path.split('/')[2];
+        return { data: await mockApi.updateCrewMember(id, data) };
+      }
+      if (path.startsWith('crew-members/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateCrewMember(id, data) };
+      }
+      if (path.startsWith('vessels/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateVessel(id, data) };
+      }
+      if (path.startsWith('inventory/items/')) {
+        const id = path.split('/')[2];
+        return { data: await mockApi.updateInventoryItem(id, data) };
+      }
+      if (path.startsWith('inventory-items/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateInventoryItem(id, data) };
+      }
+      if (path.startsWith('maintenance/tasks/')) {
+        const id = path.split('/')[2];
+        return { data: await mockApi.updateMaintenanceTask(id, data) };
+      }
+      if (path.startsWith('voyages/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateVoyage(id, data) };
+      }
+      if (path.startsWith('procurement/requests/')) {
+        const id = path.split('/')[2];
+        return { data: await mockApi.updateProcurementRequest(id, data) };
+      }
+      if (path.startsWith('logbook/') && !path.includes('/sign')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateLogbookEntry(id, data) };
+      }
+      if (path.startsWith('engine-log/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateEngineLog(id, data) };
+      }
+      if (path.startsWith('fuel-management/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updateFuelConsumption(id, data) };
+      }
+      if (path.startsWith('psc/')) {
+        const id = path.split('/')[1];
+        return { data: await mockApi.updatePSCChecklist(id, data) };
+      }
       return { data: { ...data, updatedAt: new Date().toISOString() } };
     },
     delete: async (url: string) => {

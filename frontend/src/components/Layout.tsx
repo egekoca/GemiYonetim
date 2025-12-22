@@ -15,6 +15,7 @@ import {
   Sun,
   User,
   ChevronDown,
+  AlertTriangle,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -39,6 +40,12 @@ export default function Layout() {
     { name: 'Tedarik', href: '/procurement', icon: ShoppingCart },
     { name: 'Bakım', href: '/maintenance', icon: Wrench },
     { name: 'Seferler', href: '/voyages', icon: Navigation },
+    { name: 'Gemi Jurnali', href: '/logbook', icon: FileText },
+    { name: 'Makine Jurnali', href: '/engine-log', icon: Wrench },
+    { name: 'Yakıt Yönetimi', href: '/fuel-management', icon: Package },
+    { name: 'PSC Hazırlık', href: '/psc', icon: FileCheck },
+    { name: 'Güvenlik Tatbikatları', href: '/safety', icon: Users },
+    { name: 'Olay Raporlama', href: '/incidents', icon: AlertTriangle },
   ];
 
   // Get current page name

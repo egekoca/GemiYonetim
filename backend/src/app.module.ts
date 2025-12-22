@@ -20,6 +20,12 @@ import { ProcurementModule } from './modules/procurement/procurement.module';
 import { MaintenanceModule } from './modules/maintenance/maintenance.module';
 import { VoyagesModule } from './modules/voyages/voyages.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { LogbookModule } from './modules/logbook/logbook.module';
+import { EngineLogModule } from './modules/engine-log/engine-log.module';
+import { FuelManagementModule } from './modules/fuel-management/fuel-management.module';
+import { PSCModule } from './modules/psc/psc.module';
+import { SafetyModule } from './modules/safety/safety.module';
+import { IncidentModule } from './modules/incident/incident.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { VesselContextInterceptor } from './common/interceptors/vessel-context.interceptor';
 
@@ -48,6 +54,12 @@ import { VesselContextInterceptor } from './common/interceptors/vessel-context.i
     MaintenanceModule,
     VoyagesModule,
     AnalyticsModule,
+    LogbookModule,
+    EngineLogModule,
+    FuelManagementModule,
+    PSCModule,
+    SafetyModule,
+    IncidentModule,
   ],
       controllers: [AppController],
       providers: [
