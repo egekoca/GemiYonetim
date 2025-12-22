@@ -40,3 +40,46 @@ docker-compose.override.yml
 *.sqlite
 *.db
 
+# Uploads
+uploads/
+backend/uploads/
+frontend/uploads/
+
+# Secrets and keys
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+secrets/
+.secrets/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Build artifacts
+*.map
+*.min.js
+*.min.css
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+.vite/
+dist-ssr/
+
+# Testing
+.nyc_output/
+coverage/
+*.lcov
+
+# Misc
+.cache/
+.parcel-cache/
+.next/
+out/
+
