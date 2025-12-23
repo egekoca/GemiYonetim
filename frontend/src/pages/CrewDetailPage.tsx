@@ -17,11 +17,11 @@ export default function CrewDetailPage() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   if (!crewMember) {
-    return <div className="text-center py-12">Mürettebat üyesi bulunamadı</div>;
+    return <div className="text-center py-12">Crew member not found</div>;
   }
 
   const getStatusColor = (status: string) => {
@@ -42,15 +42,15 @@ export default function CrewDetailPage() {
         className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 mb-6"
       >
         <ArrowLeft className="h-4 w-4 mr-2" />
-        Geri Dön
+        Back to Crew
       </Link>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Sertifikalar */}
+        {/* Certificates */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
           <div className="flex items-center mb-4">
             <FileCheck className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
-            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Sertifikalar</h2>
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Certificates</h2>
           </div>
           <div className="space-y-3">
             {crewMember.certificates?.map((cert: any) => {
@@ -70,31 +70,31 @@ export default function CrewDetailPage() {
                         {cert.certificateNumber} | {cert.issuingAuthority}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        Bitiş: {formatDate(cert.expiryDate)}
+                        Expiry: {formatDate(cert.expiryDate)}
                       </p>
                     </div>
                     <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(status)}`}>
                       {status === 'expired'
-                        ? 'Süresi Dolmuş'
+                        ? 'Expired'
                         : status === 'warning'
-                        ? `${daysUntil} gün kaldı`
-                        : 'Aktif'}
+                        ? `${daysUntil} days left`
+                        : 'Active'}
                     </span>
                   </div>
                 </div>
               );
             })}
             {(!crewMember.certificates || crewMember.certificates.length === 0) && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">Sertifika bulunamadı</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">No certificates found</p>
             )}
           </div>
         </div>
 
-        {/* Eğitimler */}
+        {/* Trainings */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
           <div className="flex items-center mb-4">
             <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
-            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Eğitimler</h2>
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Trainings</h2>
           </div>
           <div className="space-y-3">
             {crewMember.trainings?.map((training: any) => (
@@ -111,23 +111,23 @@ export default function CrewDetailPage() {
                 {training.startDate && (
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {formatDate(training.startDate)} -{' '}
-                    {training.endDate ? formatDate(training.endDate) : 'Devam ediyor'}
+                    {training.endDate ? formatDate(training.endDate) : 'In progress'}
                   </p>
                 )}
               </div>
             ))}
             {(!crewMember.trainings || crewMember.trainings.length === 0) && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">Eğitim bulunamadı</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">No trainings found</p>
             )}
           </div>
         </div>
       </div>
 
-      {/* Rotasyonlar */}
+      {/* Rotations */}
       <div className="mt-6 bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <div className="flex items-center mb-4">
           <Calendar className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Rotasyon Geçmişi</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Rotation History</h2>
         </div>
         <div className="space-y-3">
           {crewMember.rotations?.map((rotation: any) => (
@@ -141,12 +141,12 @@ export default function CrewDetailPage() {
                     {rotation.rotationType} - {rotation.vessel?.name}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Planlanan: {formatDate(rotation.plannedDate)}
-                    {rotation.actualDate && ` | Gerçekleşen: ${formatDate(rotation.actualDate)}`}
+                    Planned: {formatDate(rotation.plannedDate)}
+                    {rotation.actualDate && ` | Actual: ${formatDate(rotation.actualDate)}`}
                   </p>
                   {rotation.port && (
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Liman: {rotation.port}
+                      Port: {rotation.port}
                     </p>
                   )}
                 </div>
@@ -154,7 +154,7 @@ export default function CrewDetailPage() {
             </div>
           ))}
           {(!crewMember.rotations || crewMember.rotations.length === 0) && (
-            <p className="text-sm text-gray-500 dark:text-gray-400">Rotasyon bulunamadı</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">No rotations found</p>
           )}
         </div>
       </div>

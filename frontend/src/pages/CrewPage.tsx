@@ -268,7 +268,7 @@ export default function CrewPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            E-posta
+            Email
           </label>
           <input
             type="email"
@@ -290,29 +290,29 @@ export default function CrewPage() {
             onChange={(e) => setFormData({ ...formData, position: e.target.value })}
             className="modal-input"
           >
-            <option value="CAPTAIN">Kaptan</option>
-            <option value="CHIEF_OFFICER">Baş Zabitan</option>
-            <option value="CHIEF_ENGINEER">Baş Mühendis</option>
-            <option value="SECOND_ENGINEER">İkinci Mühendis</option>
-            <option value="OFFICER">Zabitan</option>
-            <option value="ABLE_SEAMAN">Tayfa</option>
-            <option value="ORDINARY_SEAMAN">Acemi Tayfa</option>
-            <option value="COOK">Aşçı</option>
-            <option value="STEWARD">Kamara Hizmetlisi</option>
+            <option value="CAPTAIN">Captain</option>
+            <option value="CHIEF_OFFICER">Chief Officer</option>
+            <option value="CHIEF_ENGINEER">Chief Engineer</option>
+            <option value="SECOND_ENGINEER">Second Engineer</option>
+            <option value="OFFICER">Officer</option>
+            <option value="ABLE_SEAMAN">Able Seaman</option>
+            <option value="ORDINARY_SEAMAN">Ordinary Seaman</option>
+            <option value="COOK">Cook</option>
+            <option value="STEWARD">Steward</option>
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Durum
+            Status
           </label>
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             className="modal-input"
           >
-            <option value="ACTIVE">Aktif</option>
-            <option value="ON_LEAVE">İzinli</option>
-            <option value="INACTIVE">Pasif</option>
+            <option value="ACTIVE">Active</option>
+            <option value="ON_LEAVE">On Leave</option>
+            <option value="INACTIVE">Inactive</option>
           </select>
         </div>
       </div>
@@ -343,15 +343,15 @@ export default function CrewPage() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Gemi
-        </label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            Vessel
+          </label>
         <select
           value={formData.vesselId}
           onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="modal-select"
         >
-          <option value="">Gemi Seçin</option>
+          <option value="">Select Vessel</option>
           {vessels?.map((vessel: any) => (
             <option key={vessel.id} value={vessel.id}>
               {vessel.name}

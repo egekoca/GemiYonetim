@@ -213,7 +213,7 @@ export default function DocumentsPage() {
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
             >
               <option value="all">All Statuses</option>
-              <option value="APPROVED">Onaylandı</option>
+              <option value="APPROVED">Approved</option>
               <option value="PENDING_APPROVAL">Onay Bekliyor</option>
               <option value="DRAFT">Taslak</option>
               <option value="REJECTED">Reddedildi</option>
@@ -252,14 +252,14 @@ export default function DocumentsPage() {
             >
               <option value="createdAt-desc">Date (Newest)</option>
               <option value="createdAt-asc">Date (Oldest)</option>
-              <option value="title-asc">İsim (A-Z)</option>
-              <option value="title-desc">İsim (Z-A)</option>
+              <option value="title-asc">Name (A-Z)</option>
+              <option value="title-desc">Name (Z-A)</option>
             </select>
           </div>
 
           {/* Items Per Page */}
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Sayfa başına:</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">Items per page:</span>
             <select
               value={itemsPerPage}
               onChange={(e) => {

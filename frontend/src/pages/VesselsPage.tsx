@@ -209,7 +209,7 @@ export default function VesselsPage() {
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Gemi Adı <span className="text-red-500">*</span>
+                  Vessel Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -222,7 +222,7 @@ export default function VesselsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  IMO Numarası <span className="text-red-500">*</span>
+                  IMO Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -247,7 +247,7 @@ export default function VesselsPage() {
                   <option value="BULKER">Bulk Carrier</option>
                   <option value="CONTAINER">Container</option>
                   <option value="GENERAL_CARGO">General Cargo</option>
-                  <option value="OTHER">Diğer</option>
+                  <option value="OTHER">Other</option>
                 </select>
               </div>
 

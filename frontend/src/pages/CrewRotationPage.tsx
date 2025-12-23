@@ -13,7 +13,7 @@ export default function CrewRotationPage() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getRotationTypeColor = (type: string) => {
@@ -34,13 +34,13 @@ export default function CrewRotationPage() {
   const getRotationTypeLabel = (type: string) => {
     switch (type) {
       case 'JOINING':
-        return 'Gemiye Katılma';
+        return 'Joining';
       case 'SIGN_OFF':
-        return 'Gemiden Ayrılma';
+        return 'Sign-off';
       case 'TRANSFER':
         return 'Transfer';
       case 'LEAVE':
-        return 'İzin';
+        return 'Leave';
       default:
         return type;
     }
@@ -78,7 +78,7 @@ export default function CrewRotationPage() {
                       </p>
                       {rotation.actualDate && (
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          Gerçek: {formatDate(rotation.actualDate)}
+                          Actual: {formatDate(rotation.actualDate)}
                         </p>
                       )}
                       {rotation.port && (

@@ -13,7 +13,7 @@ export default function InventoryTransactionsPage() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getTransactionIcon = (type: string) => {
@@ -34,13 +34,13 @@ export default function InventoryTransactionsPage() {
   const getTransactionTypeLabel = (type: string) => {
     switch (type) {
       case 'IN':
-        return 'Giriş';
+        return 'Inbound';
       case 'OUT':
-        return 'Çıkış';
+        return 'Outbound';
       case 'TRANSFER':
         return 'Transfer';
       case 'ADJUSTMENT':
-        return 'Düzeltme';
+        return 'Adjustment';
       default:
         return type;
     }
@@ -76,7 +76,7 @@ export default function InventoryTransactionsPage() {
                         {transaction.item?.name}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {transaction.item?.vessel?.name} | {transaction.reference || 'Referans yok'}
+                        {transaction.item?.vessel?.name} | {transaction.reference || 'No reference'}
                       </p>
                       {transaction.notes && (
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">

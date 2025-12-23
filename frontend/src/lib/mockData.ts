@@ -85,8 +85,8 @@ export const mockVessels = [
 export const mockCategories = [
   {
     id: '1',
-    name: 'Sertifikalar',
-    description: 'Gemi sertifikaları',
+    name: 'Certificates',
+    description: 'Vessel certificates',
     type: 'CERTIFICATE',
     isActive: true,
     createdAt: '2024-01-01T10:00:00Z',
@@ -94,8 +94,8 @@ export const mockCategories = [
   },
   {
     id: '2',
-    name: 'Teknik Çizimler',
-    description: 'Teknik çizimler ve planlar',
+    name: 'Technical Drawings',
+    description: 'Technical drawings and plans',
     type: 'TECHNICAL_DRAWING',
     isActive: true,
     createdAt: '2024-01-01T10:00:00Z',
@@ -104,7 +104,7 @@ export const mockCategories = [
   {
     id: '3',
     name: 'HSEQ',
-    description: 'Sağlık, güvenlik, çevre ve kalite',
+    description: 'Health, safety, environment, and quality',
     type: 'HSEQ',
     isActive: true,
     createdAt: '2024-01-01T10:00:00Z',
@@ -112,8 +112,8 @@ export const mockCategories = [
   },
   {
     id: '4',
-    name: 'Jurnaller',
-    description: 'Gemi jurnalleri',
+    name: 'Logbooks',
+    description: 'Vessel logbooks',
     type: 'JOURNAL',
     isActive: true,
     createdAt: '2024-01-01T10:00:00Z',
@@ -125,7 +125,7 @@ export const mockDocuments = [
   {
     id: '1',
     title: 'International Tonnage Certificate',
-    description: 'Uluslararası tonaj sertifikası',
+    description: 'International tonnage certificate',
     filePath: '/documents/cert-1.pdf',
     fileName: 'tonnage-certificate.pdf',
     fileSize: 245760,
@@ -146,7 +146,7 @@ export const mockDocuments = [
   {
     id: '2',
     title: 'Safety Management Certificate',
-    description: 'Güvenlik yönetim sertifikası',
+    description: 'Safety management certificate',
     filePath: '/documents/cert-2.pdf',
     fileName: 'safety-certificate.pdf',
     fileSize: 512000,
@@ -167,7 +167,7 @@ export const mockDocuments = [
   {
     id: '3',
     title: 'Engine Room Layout',
-    description: 'Makine dairesi yerleşim planı',
+    description: 'Engine room layout plan',
     filePath: '/documents/tech-1.pdf',
     fileName: 'engine-room-layout.pdf',
     fileSize: 1024000,
@@ -188,7 +188,7 @@ export const mockDocuments = [
   {
     id: '4',
     title: 'Daily Engine Log',
-    description: 'Günlük makine jurnali',
+    description: 'Daily engine logbook',
     filePath: '/documents/journal-1.pdf',
     fileName: 'daily-log-2024-02.pdf',
     fileSize: 128000,
@@ -209,7 +209,7 @@ export const mockDocuments = [
   {
     id: '5',
     title: 'Pollution Prevention Certificate',
-    description: 'Kirlilik önleme sertifikası',
+    description: 'Pollution prevention certificate',
     filePath: '/documents/cert-3.pdf',
     fileName: 'pollution-certificate.pdf',
     fileSize: 384000,
@@ -296,8 +296,8 @@ export const mockEngineLogs = [
     oilTemperature: 90,
     loadPercentage: 75,
     alarms: null,
-    maintenanceNotes: 'Rutin kontrol yapıldı',
-    remarks: 'Tüm parametreler normal',
+    maintenanceNotes: 'Routine check completed',
+    remarks: 'All parameters normal',
     engineerId: '2',
     engineer: mockUsers[1],
     createdAt: new Date().toISOString(),
@@ -443,7 +443,7 @@ export const mockCertificates = [
     id: '1',
     docId: '1',
     issueDate: '2023-01-15',
-    expiryDate: getDateString(365), // 1 yıl sonra (aktif)
+    expiryDate: getDateString(365), // 1 year later (active)
     warningThreshold: 30,
     issuingAuthority: 'Turkish Maritime Authority',
     certificateNumber: 'CERT-2023-001',
@@ -458,7 +458,7 @@ export const mockCertificates = [
     id: '2',
     docId: '2',
     issueDate: '2023-06-01',
-    expiryDate: getDateString(20), // 20 gün sonra (yakında dolacak - warning)
+    expiryDate: getDateString(20), // 20 days later (expiring soon - warning)
     warningThreshold: 30,
     issuingAuthority: 'IMO',
     certificateNumber: 'CERT-2023-002',
@@ -473,7 +473,7 @@ export const mockCertificates = [
     id: '3',
     docId: '5',
     issueDate: '2022-12-01',
-    expiryDate: getDateString(-15), // 15 gün önce (süresi dolmuş)
+    expiryDate: getDateString(-15), // 15 days ago (expired)
     warningThreshold: 30,
     issuingAuthority: 'Flag State',
     certificateNumber: 'CERT-2022-003',
@@ -505,7 +505,7 @@ export const mockCrewMembers = [
   {
     id: '1',
     firstName: 'Ahmet',
-    lastName: 'Yılmaz',
+    lastName: 'Yilmaz',
     middleName: null,
     seafarerId: 'SEA001',
     passportNumber: 'P123456',

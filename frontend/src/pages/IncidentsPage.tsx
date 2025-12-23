@@ -181,7 +181,7 @@ export default function IncidentsPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu olayı silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this incident?')) {
       deleteMutation.mutate(id);
     }
   };
@@ -199,15 +199,15 @@ export default function IncidentsPage() {
   const getIncidentTypeLabel = (type: string) => {
     switch (type) {
       case 'ACCIDENT':
-        return 'Kaza';
+        return 'Accident';
       case 'NEAR_MISS':
-        return 'Yakın Kaza';
+        return 'Near Miss';
       case 'NON_CONFORMITY':
-        return 'Uyumsuzluk';
+        return 'Non-Conformity';
       case 'ENVIRONMENTAL':
-        return 'Çevresel';
+        return 'Environmental';
       case 'OTHER':
-        return 'Diğer';
+        return 'Other';
       default:
         return type;
     }
@@ -639,12 +639,12 @@ export default function IncidentsPage() {
                         </p>
                         {incident.immediateActions && (
                           <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">
-                            ⚠️ Acil Müdahale: {incident.immediateActions}
+                            ⚠️ Immediate Action: {incident.immediateActions}
                           </p>
                         )}
                         {incident.correctiveActions && (
                           <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
-                            ✅ Düzeltici Önlem: {incident.correctiveActions}
+                            ✅ Corrective Action: {incident.correctiveActions}
                           </p>
                         )}
                       </div>

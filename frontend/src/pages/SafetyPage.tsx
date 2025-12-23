@@ -136,7 +136,7 @@ export default function SafetyPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu güvenlik tatbikatını silmek istediğinizden emin misiniz?')) {
+  if (confirm('Are you sure you want to delete this safety drill?')) {
       deleteMutation.mutate(id);
     }
   };

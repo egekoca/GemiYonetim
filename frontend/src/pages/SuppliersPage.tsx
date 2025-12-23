@@ -12,7 +12,7 @@ export default function SuppliersPage() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   return (
@@ -31,7 +31,7 @@ export default function SuppliersPage() {
             </div>
             {supplier.contactPerson && (
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                İletişim: {supplier.contactPerson}
+                Contact: {supplier.contactPerson}
               </p>
             )}
             {supplier.email && (

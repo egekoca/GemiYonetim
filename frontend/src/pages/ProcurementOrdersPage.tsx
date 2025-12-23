@@ -13,7 +13,7 @@ export default function ProcurementOrdersPage() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getStatusIcon = (status: string) => {

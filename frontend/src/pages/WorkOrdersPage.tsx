@@ -13,7 +13,7 @@ export default function WorkOrdersPage() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getStatusIcon = (status: string) => {
@@ -48,8 +48,8 @@ export default function WorkOrdersPage() {
                         {wo.task?.title} | {wo.task?.vessel?.name}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        Başlangıç: {formatDate(wo.startDate)}
-                        {wo.completedDate && ` | Bitiş: ${formatDate(wo.completedDate)}`}
+                        Start: {formatDate(wo.startDate)}
+                        {wo.completedDate && ` | End: ${formatDate(wo.completedDate)}`}
                       </p>
                     </div>
                   </div>
@@ -60,9 +60,9 @@ export default function WorkOrdersPage() {
                       </p>
                     )}
                     {wo.actualHours && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {wo.actualHours} saat
-                      </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {wo.actualHours} hours
+                    </p>
                     )}
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{wo.status}</p>
                   </div>
