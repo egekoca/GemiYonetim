@@ -162,8 +162,11 @@ export default function Layout() {
       <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
         <div className="flex-shrink-0 px-2 py-1 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-2">
-            <img src="/gemi.png" alt="GDYS Logo" className="h-14 w-14 object-contain flex-shrink-0" />
-            <h1 className="text-lg font-bold text-blue-600 dark:text-blue-400">GDYS</h1>
+            <img src="/gemi.png" alt="Navis Logo" className="h-14 w-14 object-contain flex-shrink-0" />
+            <div className="leading-tight">
+              <div className="text-lg font-bold text-blue-600 dark:text-blue-400">Navis</div>
+              <div className="text-xs font-medium text-gray-500 dark:text-gray-400">Maritime Management</div>
+            </div>
           </div>
         </div>
         <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
