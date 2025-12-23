@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../lib/api';
-import { FileText, Download, Eye, Upload, Plus, X, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FileText, Download, Eye, Upload, X, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { formatDate } from '../lib/utils';
 import { useAuthStore } from '../store/authStore';
 

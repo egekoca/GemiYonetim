@@ -9,6 +9,7 @@ import {
   mockCrewTrainings,
   mockCrewRotations,
   mockInventoryItems,
+  mockInventoryLocations,
   mockInventoryTransactions,
   mockProcurementSuppliers,
   mockProcurementRequests,
@@ -251,6 +252,18 @@ export const mockApi = {
     return newMember;
   },
 
+  async updateCrewMember(id: string, data: any) {
+    await delay(500);
+    const memberIndex = mockCrewMembers.findIndex((m) => m.id === id);
+    if (memberIndex === -1) throw new Error('Crew member not found');
+    mockCrewMembers[memberIndex] = {
+      ...mockCrewMembers[memberIndex],
+      ...data,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockCrewMembers[memberIndex];
+  },
+
   // Crew Certificates
   async getExpiringCrewCertificates(days: number = 30) {
     await delay(400);
@@ -471,6 +484,34 @@ export const mockApi = {
     return request;
   },
 
+  async createProcurementRequest(data: any) {
+    await delay(500);
+    const newRequest = {
+      id: `REQ-2024-${String(mockProcurementRequests.length + 1).padStart(4, '0')}`,
+      requestNumber: `REQ-2024-${String(mockProcurementRequests.length + 1).padStart(4, '0')}`,
+      ...data,
+      status: 'DRAFT',
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockProcurementRequests.push(newRequest);
+    return newRequest;
+  },
+
+  async updateProcurementRequest(id: string, data: any) {
+    await delay(500);
+    const requestIndex = mockProcurementRequests.findIndex((r) => r.id === id);
+    if (requestIndex === -1) throw new Error('Procurement request not found');
+    mockProcurementRequests[requestIndex] = {
+      ...mockProcurementRequests[requestIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockProcurementRequests[requestIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockProcurementRequests[requestIndex];
+  },
+
   async getProcurementOrders(vesselId?: string, status?: string) {
     await delay(400);
     let orders = mockProcurementOrders;
@@ -503,11 +544,14 @@ export const mockApi = {
   },
 
   // Maintenance
-  async getMaintenanceTasks(vesselId?: string) {
+  async getMaintenanceTasks(vesselId?: string, status?: string) {
     await delay(400);
     let tasks = mockMaintenanceTasks;
     if (vesselId) {
       tasks = tasks.filter((t) => t.vesselId === vesselId);
+    }
+    if (status) {
+      tasks = tasks.filter((t) => t.status === status);
     }
     return tasks.map((task) => ({
       ...task,
@@ -576,24 +620,6 @@ export const mockApi = {
       vessel: mockVessels.find((v) => v.id === task.vesselId),
     }));
   },
-  async getMaintenanceTasks(vesselId?: string, status?: string) {
-    await delay(400);
-    let tasks = mockMaintenanceTasks;
-    if (vesselId) {
-      tasks = tasks.filter((t) => t.vesselId === vesselId);
-    }
-    if (status) {
-      tasks = tasks.filter((t) => t.status === status);
-    }
-    return tasks;
-  },
-
-  async getMaintenanceTask(id: string) {
-    await delay(300);
-    const task = mockMaintenanceTasks.find((t) => t.id === id);
-    if (!task) throw new Error('Maintenance task not found');
-    return task;
-  },
 
   async getOverdueTasks(vesselId?: string) {
     await delay(400);
@@ -645,6 +671,34 @@ export const mockApi = {
     const voyage = mockVoyages.find((v) => v.id === id);
     if (!voyage) throw new Error('Voyage not found');
     return voyage;
+  },
+
+  async createVoyage(data: any) {
+    await delay(500);
+    const newVoyage = {
+      id: `VOY-2024-${String(mockVoyages.length + 1).padStart(4, '0')}`,
+      voyageNumber: `VOY-2024-${String(mockVoyages.length + 1).padStart(4, '0')}`,
+      ...data,
+      status: 'PLANNED',
+      vessel: mockVessels.find((v) => v.id === data.vesselId),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    mockVoyages.push(newVoyage);
+    return newVoyage;
+  },
+
+  async updateVoyage(id: string, data: any) {
+    await delay(500);
+    const voyageIndex = mockVoyages.findIndex((v) => v.id === id);
+    if (voyageIndex === -1) throw new Error('Voyage not found');
+    mockVoyages[voyageIndex] = {
+      ...mockVoyages[voyageIndex],
+      ...data,
+      vessel: data.vesselId ? mockVessels.find((v) => v.id === data.vesselId) : mockVoyages[voyageIndex].vessel,
+      updatedAt: new Date().toISOString(),
+    };
+    return mockVoyages[voyageIndex];
   },
 
   // Logbook
@@ -726,7 +780,7 @@ export const mockApi = {
     if (entryIndex === -1) throw new Error('Logbook entry not found');
     mockLogbookEntries[entryIndex].isSigned = true;
     mockLogbookEntries[entryIndex].captainId = captainId;
-    mockLogbookEntries[entryIndex].captain = mockUsers.find((u) => u.id === captainId);
+    mockLogbookEntries[entryIndex].captain = mockUsers.find((u) => u.id === captainId) || null;
     mockLogbookEntries[entryIndex].signedAt = new Date().toISOString();
     mockLogbookEntries[entryIndex].updatedAt = new Date().toISOString();
     return mockLogbookEntries[entryIndex];

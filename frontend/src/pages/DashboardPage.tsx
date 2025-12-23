@@ -2,20 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import api from '../lib/api';
 import { Ship, Users, Wrench, Package } from 'lucide-react';
 import {
-  BarChart,
-  Bar,
   PieChart,
   Pie,
   Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
-
-const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
 
 export default function DashboardPage() {
   const { data: certificates } = useQuery({

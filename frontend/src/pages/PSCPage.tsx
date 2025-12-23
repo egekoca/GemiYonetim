@@ -155,16 +155,6 @@ export default function PSCPage() {
     }
   };
 
-  const getItemStatusIcon = (status: string) => {
-    switch (status) {
-      case 'COMPLIANT':
-        return <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />;
-      case 'NON_COMPLIANT':
-        return <XCircle className="h-4 w-4 text-red-600 dark:text-red-400" />;
-      default:
-        return <AlertCircle className="h-4 w-4 text-gray-400" />;
-    }
-  };
 
   if (isLoading) {
     return <div className="text-center py-12">Yükleniyor...</div>;

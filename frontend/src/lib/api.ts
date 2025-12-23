@@ -221,7 +221,7 @@ const createMockApi = () => {
       
       throw new Error(`Mock API: Route not found - ${path}`);
     },
-    post: async (url: string, data?: any, config?: any) => {
+    post: async (url: string, data?: any) => {
       const normalizedUrl = normalizePath(url);
       let path = normalizedUrl.split('?')[0];
       
@@ -261,7 +261,7 @@ const createMockApi = () => {
           return { data: await mockApi.createDocument(documentData, file) };
         }
         // Regular POST with JSON
-        return { data: await mockApi.createDocument(data, null) };
+        return { data: await mockApi.createDocument(data, undefined) };
       }
       if (path.includes('/approve')) {
         const id = path.split('/')[1];
@@ -269,7 +269,8 @@ const createMockApi = () => {
       }
       if (path.includes('/reject')) {
         const id = path.split('/')[1];
-        return { data: await mockApi.rejectDocument(id, data.reason) };
+        const reason = data && typeof data === 'object' && 'reason' in data ? data.reason : undefined;
+        return { data: await mockApi.rejectDocument(id, reason) };
       }
       if (path === 'crew/members') {
         return { data: await mockApi.createCrewMember(data) };
@@ -368,8 +369,6 @@ const createMockApi = () => {
       return { data: { ...data, updatedAt: new Date().toISOString() } };
     },
     delete: async (url: string) => {
-      const normalizedUrl = normalizePath(url);
-      const path = normalizedUrl.split('?')[0];
       // Mock delete operations
       return { data: { success: true } };
     },

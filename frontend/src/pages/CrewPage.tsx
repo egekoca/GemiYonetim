@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import api from '../lib/api';
 import { Users, AlertTriangle, CheckCircle, Plus, Edit, Trash2, X, FileCheck } from 'lucide-react';
-import { formatDate, getDaysUntil, getCertificateStatus } from '../lib/utils';
+import { getCertificateStatus } from '../lib/utils';
 import { useAuthStore } from '../store/authStore';
 
 export default function CrewPage() {

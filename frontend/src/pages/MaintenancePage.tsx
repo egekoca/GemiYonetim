@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../lib/api';
-import { Wrench, AlertTriangle, CheckCircle, Clock, Plus, Edit, Trash2, X } from 'lucide-react';
+import { Wrench, Plus, Edit, Trash2, X } from 'lucide-react';
 import { formatDate } from '../lib/utils';
 import { useAuthStore } from '../store/authStore';
 
