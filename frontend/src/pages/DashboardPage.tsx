@@ -5,6 +5,11 @@ import {
   PieChart,
   Pie,
   Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
@@ -190,30 +195,24 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Certificate Status Pie Chart */}
+        {/* Certificate Status Bar Chart */}
         {certificateChartData.length > 0 && (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
               Certificate Status
             </h3>
             <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={certificateChartData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {certificateChartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
+              <BarChart data={certificateChartData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis allowDecimals={false} />
                 <Tooltip />
-              </PieChart>
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {certificateChartData.map((entry, index) => (
+                    <Cell key={`cell-cert-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
           </div>
         )}
