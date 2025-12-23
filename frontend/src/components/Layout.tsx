@@ -247,9 +247,13 @@ export default function Layout() {
             <div className="flex items-center justify-between">
               {/* Page Title */}
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                  {getCurrentPageName()}
-                </h2>
+                {location.pathname === '/dashboard' || location.pathname === '/' ? (
+                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                    {getCurrentPageName()}
+                  </h2>
+                ) : (
+                  <h2 className="sr-only">{getCurrentPageName()}</h2>
+                )}
               </div>
 
               {/* Right Side - Profile & Actions */}
