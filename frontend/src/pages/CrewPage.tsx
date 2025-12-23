@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import api from '../lib/api';
-import { Users, AlertTriangle, CheckCircle, Plus, Edit, Trash2, X } from 'lucide-react';
+import { Users, AlertTriangle, CheckCircle, Plus, Edit, Trash2, X, FileCheck } from 'lucide-react';
 import { formatDate, getDaysUntil, getCertificateStatus } from '../lib/utils';
 import { useAuthStore } from '../store/authStore';
 
@@ -470,20 +470,28 @@ export default function CrewPage() {
                         </div>
                       </Link>
                       <div className="flex items-center space-x-4">
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {member.certificates?.length || 0} sertifika
+                        {/* Certificate Count - Always shown with icon, fixed width */}
+                        <div className="flex items-center space-x-2 w-[140px]">
+                          <FileCheck className="h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+                          <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                            {member.certificates?.length || 0} sertifika
+                          </span>
                         </div>
-                        {expiringCertsCount > 0 && (
-                          <div className="flex items-center space-x-1">
-                            <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-                            <span className="text-sm text-yellow-600 dark:text-yellow-400">
-                              {expiringCertsCount}
-                            </span>
-                          </div>
-                        )}
-                        {expiringCertsCount === 0 && member.certificates?.length > 0 && (
-                          <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
-                        )}
+                        {/* Status Icon - Fixed width container for alignment */}
+                        <div className="flex items-center justify-start w-[60px]">
+                          {expiringCertsCount > 0 ? (
+                            <div className="flex items-center space-x-1">
+                              <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0" />
+                              <span className="text-sm text-yellow-600 dark:text-yellow-400">
+                                {expiringCertsCount}
+                              </span>
+                            </div>
+                          ) : member.certificates?.length > 0 ? (
+                            <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+                          ) : (
+                            <AlertTriangle className="h-4 w-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
+                          )}
+                        </div>
                         <button
                           onClick={(e) => {
                             e.preventDefault();
