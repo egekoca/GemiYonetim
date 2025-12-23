@@ -407,9 +407,9 @@ export default function LogbookPage() {
               <li key={entry.id}>
                 <div className="px-4 py-4 sm:px-6">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center flex-1">
-                      <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
-                      <div className="flex-1">
+                    <div className="flex items-center min-w-0 flex-1">
+                      <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3 flex-shrink-0" />
+                      <div className="min-w-0 flex-1">
                         <div className="flex items-center space-x-4 mb-2">
                           <p className="text-sm font-medium text-gray-900 dark:text-white">
                             {entry.entryTime}

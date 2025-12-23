@@ -15,37 +15,92 @@ import {
   Sun,
   User,
   ChevronDown,
+  ChevronRight,
   AlertTriangle,
+  Shield,
+  BookOpen,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+type NavigationItem = {
+  name: string;
+  href: string;
+  icon: any;
+  children?: NavigationItem[];
+};
 
 export default function Layout() {
   const { user, logout } = useAuthStore();
   const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle('dark');
   };
 
-  const navigation = [
+  const toggleMenu = (menuName: string) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [menuName]: !prev[menuName],
+    }));
+  };
+
+  // Auto-open menus if current page is in a submenu
+  useEffect(() => {
+    const newOpenMenus: { [key: string]: boolean } = {};
+    navigation.forEach((item) => {
+      if (item.children) {
+        const hasActiveChild = item.children.some((child) =>
+          location.pathname.startsWith(child.href)
+        );
+        if (hasActiveChild) {
+          newOpenMenus[item.name] = true;
+        }
+      }
+    });
+    setOpenMenus((prev) => ({ ...prev, ...newOpenMenus }));
+  }, [location.pathname]);
+
+  const navigation: NavigationItem[] = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Gemiler', href: '/vessels', icon: Ship },
-    { name: 'Dokümanlar', href: '/documents', icon: FileText },
-    { name: 'Sertifikalar', href: '/certificates', icon: FileCheck },
+    {
+      name: 'Dokümanlar',
+      href: '#',
+      icon: FileText,
+      children: [
+        { name: 'Dokümanlar', href: '/documents', icon: FileText },
+        { name: 'Sertifikalar', href: '/certificates', icon: FileCheck },
+      ],
+    },
     { name: 'Mürettebat', href: '/crew', icon: Users },
     { name: 'Envanter', href: '/inventory', icon: Package },
     { name: 'Tedarik', href: '/procurement', icon: ShoppingCart },
     { name: 'Bakım', href: '/maintenance', icon: Wrench },
     { name: 'Seferler', href: '/voyages', icon: Navigation },
-    { name: 'Gemi Jurnali', href: '/logbook', icon: FileText },
-    { name: 'Makine Jurnali', href: '/engine-log', icon: Wrench },
     { name: 'Yakıt Yönetimi', href: '/fuel-management', icon: Package },
-    { name: 'PSC Hazırlık', href: '/psc', icon: FileCheck },
-    { name: 'Güvenlik Tatbikatları', href: '/safety', icon: Users },
-    { name: 'Olay Raporlama', href: '/incidents', icon: AlertTriangle },
+    {
+      name: 'Jurnaller',
+      href: '#',
+      icon: BookOpen,
+      children: [
+        { name: 'Gemi Jurnali', href: '/logbook', icon: FileText },
+        { name: 'Makine Jurnali', href: '/engine-log', icon: Wrench },
+      ],
+    },
+    {
+      name: 'Güvenlik',
+      href: '#',
+      icon: Shield,
+      children: [
+        { name: 'PSC Hazırlık', href: '/psc', icon: FileCheck },
+        { name: 'Güvenlik Tatbikatları', href: '/safety', icon: Users },
+        { name: 'Olay Raporlama', href: '/incidents', icon: AlertTriangle },
+      ],
+    },
   ];
 
   // Get current page name
@@ -70,13 +125,35 @@ export default function Layout() {
       return 'Rotasyon Takvimi';
     }
     
-    const currentNav = navigation.find((nav) => {
-      if (nav.href === '/dashboard') {
-        return location.pathname === '/dashboard' || location.pathname === '/';
+    // Check in navigation items and their children
+    for (const nav of navigation) {
+      if (nav.children) {
+        const childMatch = nav.children.find((child) => location.pathname.startsWith(child.href));
+        if (childMatch) {
+          return childMatch.name;
+        }
+      } else {
+        if (nav.href === '/dashboard') {
+          if (location.pathname === '/dashboard' || location.pathname === '/') {
+            return nav.name;
+          }
+        } else if (location.pathname.startsWith(nav.href)) {
+          return nav.name;
+        }
       }
-      return location.pathname.startsWith(nav.href);
-    });
-    return currentNav?.name || 'Dashboard';
+    }
+    return 'Dashboard';
+  };
+
+  // Check if a navigation item or its children is active
+  const isNavActive = (item: NavigationItem): boolean => {
+    if (item.children) {
+      return item.children.some((child) => location.pathname.startsWith(child.href));
+    }
+    if (item.href === '/dashboard') {
+      return location.pathname === '/dashboard' || location.pathname === '/';
+    }
+    return location.pathname.startsWith(item.href);
   };
 
   return (
@@ -86,13 +163,58 @@ export default function Layout() {
         <div className="flex-shrink-0 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">GDYS</h1>
         </div>
-        <nav className="flex-1 px-4 py-4 space-y-1">
+        <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
           {navigation.map((item) => {
             const Icon = item.icon;
-            const isActive = 
-              item.href === '/dashboard' 
-                ? location.pathname === '/dashboard' || location.pathname === '/'
-                : location.pathname.startsWith(item.href);
+            const hasChildren = item.children && item.children.length > 0;
+            const isActive = isNavActive(item);
+            const isOpen = openMenus[item.name] || false;
+
+            if (hasChildren) {
+              return (
+                <div key={item.name}>
+                  <button
+                    onClick={() => toggleMenu(item.name)}
+                    className={`w-full flex items-center justify-between px-4 py-2 text-sm font-medium rounded-lg ${
+                      isActive
+                        ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                        : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <Icon className="w-5 h-5 mr-3" />
+                      {item.name}
+                    </div>
+                    <ChevronRight
+                      className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-90' : ''}`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+                      {item.children?.map((child) => {
+                        const ChildIcon = child.icon;
+                        const isChildActive = location.pathname.startsWith(child.href);
+                        return (
+                          <Link
+                            key={child.name}
+                            to={child.href}
+                            className={`flex items-center px-4 py-2 text-sm font-medium rounded-lg ${
+                              isChildActive
+                                ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                                : 'text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700'
+                            }`}
+                          >
+                            <ChildIcon className="w-4 h-4 mr-3" />
+                            {child.name}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={item.name}
