@@ -420,11 +420,20 @@ export default function MaintenancePage() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
                     Task
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
-                    Vessel / Equipment / Location
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[160px]">
+                    Vessel
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[180px]">
-                    Due Date / Priority
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[160px]">
+                    Equipment
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[160px]">
+                    Location
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[160px]">
+                    Due Date
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[120px]">
+                    Priority
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
                     Duration
@@ -449,16 +458,28 @@ export default function MaintenancePage() {
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[300px]">
-                        {task.vessel?.name} | {task.equipment || 'Equipment not specified'} | {task.location || 'Location not specified'}
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                        {task.vessel?.name || 'N/A'}
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Due: {formatDate(task.dueDate)}
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                        {task.equipment || 'Equipment not specified'}
                       </div>
-                      <div className={`text-xs mt-1 ${getPriorityColor(task.priority)}`}>
-                        Priority: {task.priority}
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                        {task.location || 'Location not specified'}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {formatDate(task.dueDate)}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className={`text-xs font-medium ${getPriorityColor(task.priority)}`}>
+                        {task.priority}
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
@@ -517,8 +538,8 @@ export default function MaintenancePage() {
 
       {/* Create Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-2xl border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Add New Maintenance Task
@@ -540,8 +561,8 @@ export default function MaintenancePage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && editingTask && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-2xl border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Edit Maintenance Task

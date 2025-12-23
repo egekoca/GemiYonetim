@@ -299,8 +299,14 @@ export default function ProcurementPage() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
                     Request
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[280px]">
-                    Details
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
+                    Request No
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[180px]">
+                    Vessel
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Required Date
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[120px]">
                     Cost
@@ -324,9 +330,19 @@ export default function ProcurementPage() {
                         {request.title}
                       </div>
                     </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {request.requestNumber}
+                      </div>
+                    </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[280px]">
-                        {request.requestNumber} | {request.vessel?.name} | Required: {formatDate(request.requiredDate)}
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[180px]">
+                        {request.vessel?.name}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {formatDate(request.requiredDate)}
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
@@ -387,8 +403,8 @@ export default function ProcurementPage() {
 
       {/* Create Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Procurement Request</h3>
               <button
@@ -408,8 +424,8 @@ export default function ProcurementPage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && editingRequest && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Edit Procurement Request

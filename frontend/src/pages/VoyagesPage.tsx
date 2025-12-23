@@ -328,11 +328,17 @@ export default function VoyagesPage() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
                     Voyage No
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
-                    Vessel / Route
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[180px]">
+                    Vessel
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[220px]">
-                    Dates
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[220px]">
+                    Route
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Start Date
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    End Date
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
                     Cost
@@ -357,19 +363,24 @@ export default function VoyagesPage() {
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[300px]">
-                        {voyage.vessel?.name} | {voyage.originPort || 'N/A'} → {voyage.destinationPort || 'N/A'}
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[180px]">
+                        {voyage.vessel?.name || 'N/A'}
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Start: {formatDate(voyage.startDate)}
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[220px]">
+                        {voyage.originPort || 'N/A'} → {voyage.destinationPort || 'N/A'}
                       </div>
-                      {voyage.endDate && (
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          End: {formatDate(voyage.endDate)}
-                        </div>
-                      )}
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {formatDate(voyage.startDate)}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {voyage.endDate ? formatDate(voyage.endDate) : 'N/A'}
+                      </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       {voyage.totalExpenses && (
@@ -428,8 +439,8 @@ export default function VoyagesPage() {
 
       {/* Create Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Voyage</h3>
               <button
@@ -449,8 +460,8 @@ export default function VoyagesPage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && editingVoyage && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">Edit Voyage</h3>
               <button

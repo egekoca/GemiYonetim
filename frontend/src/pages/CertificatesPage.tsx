@@ -101,6 +101,14 @@ export default function CertificatesPage() {
 
   return (
     <div className="p-6">
+      {/* Page Header */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Certificates</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          Certificate tracking and expiry overview
+        </p>
+      </div>
+
       {/* Search and Filter Bar */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-md p-4 mb-4">
         <div className="flex flex-col md:flex-row gap-4">
@@ -193,10 +201,13 @@ export default function CertificatesPage() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
                     Certificate
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[250px]">
-                    Issuing Authority / Expiry Date
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[180px]">
+                    Issuing Authority
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[180px]">
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Expiry Date
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[150px]">
                     Status
                   </th>
                 </tr>
@@ -216,8 +227,13 @@ export default function CertificatesPage() {
                         </div>
                       </td>
                       <td className="px-4 py-4">
-                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[250px]">
-                          {cert.issuingAuthority} | Expiry: {formatDate(cert.expiryDate)}
+                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[180px]">
+                          {cert.issuingAuthority || 'N/A'}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {formatDate(cert.expiryDate)}
                         </div>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">

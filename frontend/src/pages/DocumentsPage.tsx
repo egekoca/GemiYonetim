@@ -183,8 +183,8 @@ export default function DocumentsPage() {
 
       {/* Search and Filter Bar */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-md p-4 mb-4">
-        <div className="flex flex-col md:flex-row gap-4">
-          {/* Search */}
+        <div className="flex flex-col gap-4">
+          {/* Search Row */}
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -201,77 +201,80 @@ export default function DocumentsPage() {
             </div>
           </div>
 
-          {/* Status Filter */}
-          <div className="flex items-center space-x-2">
-            <Filter className="h-5 w-5 text-gray-400" />
-            <select
-              value={statusFilter}
-              onChange={(e) => {
-                setStatusFilter(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
-            >
-              <option value="all">All Statuses</option>
-              <option value="APPROVED">Approved</option>
-              <option value="PENDING_APPROVAL">Onay Bekliyor</option>
-              <option value="DRAFT">Taslak</option>
-              <option value="REJECTED">Reddedildi</option>
-            </select>
-          </div>
+          {/* Filters Row */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center">
+            {/* Status Filter */}
+            <div className="flex items-center space-x-2 min-w-[160px]">
+              <Filter className="h-5 w-5 text-gray-400 flex-shrink-0" />
+              <select
+                value={statusFilter}
+                onChange={(e) => {
+                  setStatusFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
+              >
+                <option value="all">All Statuses</option>
+                <option value="APPROVED">Approved</option>
+                <option value="PENDING_APPROVAL">Pending Approval</option>
+                <option value="DRAFT">Draft</option>
+                <option value="REJECTED">Rejected</option>
+              </select>
+            </div>
 
-          {/* Category Filter */}
-          <div className="flex items-center space-x-2">
-            <select
-              value={categoryFilter}
-              onChange={(e) => {
-                setCategoryFilter(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
-            >
-              <option value="all">All Categories</option>
-              {categories?.map((cat: any) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* Category Filter */}
+            <div className="flex items-center space-x-2 min-w-[160px]">
+              <select
+                value={categoryFilter}
+                onChange={(e) => {
+                  setCategoryFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
+              >
+                <option value="all">All Categories</option>
+                {categories?.map((cat: any) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Sort */}
-          <div className="flex items-center space-x-2">
-            <select
-              value={`${sortBy}-${sortOrder}`}
-              onChange={(e) => {
-                const [field, order] = e.target.value.split('-');
-                setSortBy(field as 'title' | 'createdAt');
-                setSortOrder(order as 'asc' | 'desc');
-              }}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
-            >
-              <option value="createdAt-desc">Date (Newest)</option>
-              <option value="createdAt-asc">Date (Oldest)</option>
-              <option value="title-asc">Name (A-Z)</option>
-              <option value="title-desc">Name (Z-A)</option>
-            </select>
-          </div>
+            {/* Sort */}
+            <div className="flex items-center space-x-2 min-w-[160px]">
+              <select
+                value={`${sortBy}-${sortOrder}`}
+                onChange={(e) => {
+                  const [field, order] = e.target.value.split('-');
+                  setSortBy(field as 'title' | 'createdAt');
+                  setSortOrder(order as 'asc' | 'desc');
+                }}
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
+              >
+                <option value="createdAt-desc">Date (Newest)</option>
+                <option value="createdAt-asc">Date (Oldest)</option>
+                <option value="title-asc">Name (A-Z)</option>
+                <option value="title-desc">Name (Z-A)</option>
+              </select>
+            </div>
 
-          {/* Items Per Page */}
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Items per page:</span>
-            <select
-              value={itemsPerPage}
-              onChange={(e) => {
-                setItemsPerPage(Number(e.target.value));
-                setCurrentPage(1);
-              }}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
-            >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-            </select>
+            {/* Items Per Page */}
+            <div className="flex items-center space-x-2 ml-auto">
+              <span className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Items per page:</span>
+              <select
+                value={itemsPerPage}
+                onChange={(e) => {
+                  setItemsPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
+              >
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -294,8 +297,14 @@ export default function DocumentsPage() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[250px]">
                     Document
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[280px]">
-                    Category / Vessel / Date
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
+                    Category
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
+                    Vessel
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[120px]">
+                    Date
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
                     Status
@@ -317,8 +326,18 @@ export default function DocumentsPage() {
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[280px]">
-                        {doc.category?.name} | {doc.vessel?.name} | {formatDate(doc.createdAt)}
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[150px]">
+                        {doc.category?.name || 'N/A'}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[150px]">
+                        {doc.vessel?.name || 'N/A'}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {formatDate(doc.createdAt)}
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
@@ -455,8 +474,8 @@ export default function DocumentsPage() {
 
       {/* Upload Modal */}
       {isUploadModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-0 md:top-20 mx-auto p-3 md:p-5 border w-full max-w-md md:w-96 shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Upload New Document

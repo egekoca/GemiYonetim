@@ -137,46 +137,95 @@ export default function VesselsPage() {
       {/* Vessels List */}
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
         {vessels && vessels.length > 0 ? (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {vessels.map((vessel: any) => (
-              <li key={vessel.id}>
-                <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Ship className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                          {vessel.name}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          IMO: {vessel.imoNumber} | {vessel.vesselType} | {vessel.flag}
-                        </p>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
+                    <span className="sr-only">Icon</span>
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
+                    Vessel Name
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
+                    IMO Number
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[120px]">
+                    Vessel Type
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[100px]">
+                    Flag
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[120px]">
+                    Location
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
+                    Documents
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
+                    <span className="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {vessels.map((vessel: any) => (
+                  <tr key={vessel.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Ship className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm font-medium text-gray-900 dark:text-white truncate max-w-[200px]">
+                        {vessel.name}
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {vessel.documents?.length || 0} documents
-                      </span>
-                      <button
-                        onClick={() => handleEdit(vessel)}
-                        className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Edit"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(vessel.id)}
-                        className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Delete"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {vessel.imoNumber}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {vessel.vesselType}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {vessel.flag}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[120px]">
+                        {vessel.location || 'N/A'}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {vessel.documents?.length || 0}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex items-center justify-end space-x-2">
+                        <button
+                          onClick={() => handleEdit(vessel)}
+                          className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                          title="Edit"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(vessel.id)}
+                          className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="px-4 py-12 text-center">
             <Ship className="mx-auto h-12 w-12 text-gray-400" />
@@ -192,8 +241,8 @@ export default function VesselsPage() {
 
       {/* Create Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-0 md:top-20 mx-auto p-3 md:p-5 border w-full max-w-md md:w-96 m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Add New Vessel
@@ -235,7 +284,7 @@ export default function VesselsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Gemi Tipi <span className="text-red-500">*</span>
+                  Vessel Type <span className="text-red-500">*</span>
                 </label>
                 <select
                   required
@@ -253,7 +302,7 @@ export default function VesselsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Bayrak <span className="text-red-500">*</span>
+                  Flag <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -266,7 +315,7 @@ export default function VesselsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Konum
+                  Location
                 </label>
                 <input
                   type="text"
@@ -279,7 +328,7 @@ export default function VesselsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Enlem
+                    Latitude
                   </label>
                   <input
                     type="number"
@@ -291,7 +340,7 @@ export default function VesselsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Boylam
+                    Longitude
                   </label>
                   <input
                     type="number"
@@ -326,8 +375,8 @@ export default function VesselsPage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && editingVessel && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-0 md:top-20 mx-auto p-3 md:p-5 border w-full max-w-md md:w-96 m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-start md:items-center justify-center p-2 md:p-4">
+          <div className="relative w-full max-w-md md:w-96 border shadow-lg rounded-md bg-white dark:bg-gray-800 p-3 md:p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Edit Vessel

@@ -460,10 +460,16 @@ export default function InventoryPage() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
                     Product
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
-                    Vessel / Location / Part No
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[180px]">
+                    Vessel
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[150px]">
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[180px]">
+                    Location
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[140px]">
+                    Part No
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
                     Quantity
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
@@ -498,8 +504,18 @@ export default function InventoryPage() {
                         )}
                       </td>
                       <td className="px-4 py-4">
-                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[300px]">
-                          {item.vessel?.name} | {item.location?.name || 'Location not specified'} | {item.partNumber || 'Part No: N/A'}
+                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                          {item.vessel?.name || 'N/A'}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                          {item.location?.name || 'Location not specified'}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[160px]">
+                          {item.partNumber || 'Part No: N/A'}
                         </div>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
