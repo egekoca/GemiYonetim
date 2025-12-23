@@ -183,43 +183,61 @@ export default function CertificatesPage() {
 
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
         {paginatedCertificates.length > 0 ? (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {paginatedCertificates.map((cert: any) => {
-            const status = getCertificateStatus(cert.expiryDate);
-            const daysUntil = getDaysUntil(cert.expiryDate);
-            return (
-              <li key={cert.id}>
-                <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <FileCheck className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
+                    <span className="sr-only">İkon</span>
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
+                    Sertifika
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[250px]">
+                    Yetkili Makam / Bitiş Tarihi
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[180px]">
+                    Durum
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {paginatedCertificates.map((cert: any) => {
+                  const status = getCertificateStatus(cert.expiryDate);
+                  const daysUntil = getDaysUntil(cert.expiryDate);
+                  return (
+                    <tr key={cert.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <FileCheck className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white truncate max-w-[200px]">
                           {cert.document?.title}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        </div>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[250px]">
                           {cert.issuingAuthority} | Bitiş: {formatDate(cert.expiryDate)}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-2">
-                        {getStatusIcon(status)}
-                        <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(status)}`}>
-                          {status === 'expired' 
-                            ? 'Süresi Dolmuş' 
-                            : status === 'warning'
-                            ? `${daysUntil} gün kaldı`
-                            : 'Aktif'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-          </ul>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2">
+                          {getStatusIcon(status)}
+                          <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${getStatusColor(status)}`}>
+                            {status === 'expired' 
+                              ? 'Süresi Dolmuş' 
+                              : status === 'warning'
+                              ? `${daysUntil} gün kaldı`
+                              : 'Aktif'}
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="px-4 py-12 text-center">
             <FileCheck className="mx-auto h-12 w-12 text-gray-400" />

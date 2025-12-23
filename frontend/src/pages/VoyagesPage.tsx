@@ -158,7 +158,7 @@ export default function VoyagesPage() {
           required
           value={formData.vesselId}
           onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         >
           <option value="">Gemi Seçin</option>
           {vessels?.map((vessel: any) => (
@@ -169,7 +169,7 @@ export default function VoyagesPage() {
         </select>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Durum
@@ -177,7 +177,7 @@ export default function VoyagesPage() {
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
             <option value="PLANNED">Planlandı</option>
             <option value="IN_PROGRESS">Devam Ediyor</option>
@@ -194,7 +194,7 @@ export default function VoyagesPage() {
             required
             value={formData.startDate}
             onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
       </div>
@@ -207,11 +207,11 @@ export default function VoyagesPage() {
           type="date"
           value={formData.endDate}
           onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Çıkış Limanı
@@ -220,7 +220,7 @@ export default function VoyagesPage() {
             type="text"
             value={formData.originPort}
             onChange={(e) => setFormData({ ...formData, originPort: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
         <div>
@@ -231,12 +231,12 @@ export default function VoyagesPage() {
             type="text"
             value={formData.destinationPort}
             onChange={(e) => setFormData({ ...formData, destinationPort: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Mesafe (Deniz Mili)
@@ -246,7 +246,7 @@ export default function VoyagesPage() {
             step="0.01"
             value={formData.distance}
             onChange={(e) => setFormData({ ...formData, distance: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
         <div>
@@ -258,7 +258,7 @@ export default function VoyagesPage() {
             step="0.01"
             value={formData.fuelConsumed}
             onChange={(e) => setFormData({ ...formData, fuelConsumed: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
       </div>
@@ -318,39 +318,69 @@ export default function VoyagesPage() {
       {/* Voyages List */}
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
         {voyages && voyages.length > 0 ? (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {voyages.map((voyage: any) => (
-              <li key={voyage.id}>
-                <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Ship className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                          {voyage.voyageNumber || `Sefer #${voyage.id.slice(0, 8)}`}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {voyage.vessel?.name} | {voyage.originPort || 'N/A'} →{' '}
-                          {voyage.destinationPort || 'N/A'}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          Başlangıç: {formatDate(voyage.startDate)}
-                          {voyage.endDate && ` | Bitiş: ${formatDate(voyage.endDate)}`}
-                        </p>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
+                    <span className="sr-only">İkon</span>
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
+                    Sefer No
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
+                    Gemi / Rota
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[220px]">
+                    Tarihler
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Maliyet
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Durum
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
+                    <span className="sr-only">İşlemler</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {voyages.map((voyage: any) => (
+                  <tr key={voyage.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Ship className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm font-medium text-gray-900 dark:text-white truncate max-w-[150px]">
+                        {voyage.voyageNumber || `Sefer #${voyage.id.slice(0, 8)}`}
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      {voyage.totalExpenses && (
-                        <div className="text-right">
-                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                            <DollarSign className="h-4 w-4 mr-1" />
-                            {voyage.totalExpenses.toLocaleString()} USD
-                          </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[300px]">
+                        {voyage.vessel?.name} | {voyage.originPort || 'N/A'} → {voyage.destinationPort || 'N/A'}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        Başlangıç: {formatDate(voyage.startDate)}
+                      </div>
+                      {voyage.endDate && (
+                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          Bitiş: {formatDate(voyage.endDate)}
                         </div>
                       )}
-                      <span
-                        className={`px-2 py-1 text-xs rounded-full ${getStatusColor(voyage.status)}`}
-                      >
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      {voyage.totalExpenses && (
+                        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                          <DollarSign className="h-4 w-4 mr-1" />
+                          {voyage.totalExpenses.toLocaleString()} USD
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${getStatusColor(voyage.status)}`}>
                         {voyage.status === 'COMPLETED'
                           ? 'Tamamlandı'
                           : voyage.status === 'IN_PROGRESS'
@@ -359,26 +389,30 @@ export default function VoyagesPage() {
                           ? 'Planlandı'
                           : voyage.status}
                       </span>
-                      <button
-                        onClick={() => handleEdit(voyage)}
-                        className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(voyage.id)}
-                        className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex items-center justify-end space-x-2">
+                        <button
+                          onClick={() => handleEdit(voyage)}
+                          className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                          title="Düzenle"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(voyage.id)}
+                          className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
+                          title="Sil"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="px-4 py-12 text-center">
             <Ship className="mx-auto h-12 w-12 text-gray-400" />

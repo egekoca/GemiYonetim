@@ -202,7 +202,7 @@ export default function MaintenancePage() {
           required
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+          className="modal-input"
         />
       </div>
 
@@ -214,11 +214,11 @@ export default function MaintenancePage() {
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+          className="modal-textarea"
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Gemi <span className="text-red-500">*</span>
@@ -227,7 +227,7 @@ export default function MaintenancePage() {
             required
             value={formData.vesselId}
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
           >
             <option value="">Gemi Seçin</option>
             {vessels?.map((vessel: any) => (
@@ -244,7 +244,7 @@ export default function MaintenancePage() {
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
           >
             <option value="PENDING">Bekliyor</option>
             <option value="IN_PROGRESS">Devam Ediyor</option>
@@ -254,7 +254,7 @@ export default function MaintenancePage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Öncelik
@@ -262,7 +262,7 @@ export default function MaintenancePage() {
           <select
             value={formData.priority}
             onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
           >
             <option value="LOW">Düşük</option>
             <option value="MEDIUM">Orta</option>
@@ -279,12 +279,12 @@ export default function MaintenancePage() {
             required
             value={formData.dueDate}
             onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Ekipman
@@ -293,7 +293,7 @@ export default function MaintenancePage() {
             type="text"
             value={formData.equipment}
             onChange={(e) => setFormData({ ...formData, equipment: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
         <div>
@@ -304,12 +304,12 @@ export default function MaintenancePage() {
             type="text"
             value={formData.location}
             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Atanan Kişi
@@ -317,7 +317,7 @@ export default function MaintenancePage() {
           <select
             value={formData.assignedToId}
             onChange={(e) => setFormData({ ...formData, assignedToId: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
           >
             <option value="">Atanmamış</option>
             {crewMembers?.map((member: any) => (
@@ -335,7 +335,7 @@ export default function MaintenancePage() {
             type="number"
             value={formData.estimatedHours}
             onChange={(e) => setFormData({ ...formData, estimatedHours: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
@@ -410,36 +410,66 @@ export default function MaintenancePage() {
       {/* Tasks List */}
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
         {tasks && tasks.length > 0 ? (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {tasks.map((task: any) => (
-              <li key={task.id}>
-                <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Wrench className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                          {task.title}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {task.vessel?.name} | {task.equipment || 'Ekipman belirtilmemiş'} |{' '}
-                          {task.location || 'Konum belirtilmemiş'}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          Bitiş: {formatDate(task.dueDate)} |{' '}
-                          <span className={getPriorityColor(task.priority)}>
-                            Öncelik: {task.priority}
-                          </span>
-                        </p>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
+                    <span className="sr-only">İkon</span>
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
+                    Görev
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
+                    Gemi / Ekipman / Konum
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[180px]">
+                    Bitiş Tarihi / Öncelik
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
+                    Süre
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Durum
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
+                    <span className="sr-only">İşlemler</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {tasks.map((task: any) => (
+                  <tr key={task.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Wrench className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm font-medium text-gray-900 dark:text-white truncate max-w-[200px]">
+                        {task.title}
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[300px]">
+                        {task.vessel?.name} | {task.equipment || 'Ekipman belirtilmemiş'} | {task.location || 'Konum belirtilmemiş'}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        Bitiş: {formatDate(task.dueDate)}
+                      </div>
+                      <div className={`text-xs mt-1 ${getPriorityColor(task.priority)}`}>
+                        Öncelik: {task.priority}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
                       {task.estimatedHours && (
                         <div className="text-sm text-gray-500 dark:text-gray-400">
                           {task.estimatedHours} saat
                         </div>
                       )}
-                      <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(task.status)}`}>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${getStatusColor(task.status)}`}>
                         {task.status === 'COMPLETED'
                           ? 'Tamamlandı'
                           : task.status === 'IN_PROGRESS'
@@ -448,26 +478,30 @@ export default function MaintenancePage() {
                           ? 'Gecikmiş'
                           : 'Bekliyor'}
                       </span>
-                      <button
-                        onClick={() => handleEdit(task)}
-                        className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(task.id)}
-                        className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex items-center justify-end space-x-2">
+                        <button
+                          onClick={() => handleEdit(task)}
+                          className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                          title="Düzenle"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(task.id)}
+                          className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
+                          title="Sil"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="px-4 py-12 text-center">
             <Wrench className="mx-auto h-12 w-12 text-gray-400" />
@@ -484,7 +518,7 @@ export default function MaintenancePage() {
       {/* Create Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+          <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Yeni Bakım Görevi
@@ -507,7 +541,7 @@ export default function MaintenancePage() {
       {/* Edit Modal */}
       {isEditModalOpen && editingTask && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+          <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Bakım Görevi Düzenle

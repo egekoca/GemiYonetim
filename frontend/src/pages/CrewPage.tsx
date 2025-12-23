@@ -165,7 +165,7 @@ export default function CrewPage() {
 
   const renderForm = (onSubmit: (e: React.FormEvent) => void, isEdit: boolean) => (
     <form onSubmit={onSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Ad <span className="text-red-500">*</span>
@@ -175,7 +175,7 @@ export default function CrewPage() {
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
         <div>
@@ -187,7 +187,7 @@ export default function CrewPage() {
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
@@ -200,7 +200,7 @@ export default function CrewPage() {
           type="text"
           value={formData.middleName}
           onChange={(e) => setFormData({ ...formData, middleName: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
         />
       </div>
 
@@ -213,7 +213,7 @@ export default function CrewPage() {
             type="text"
             value={formData.seafarerId}
             onChange={(e) => setFormData({ ...formData, seafarerId: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
         <div>
@@ -224,7 +224,7 @@ export default function CrewPage() {
             type="text"
             value={formData.passportNumber}
             onChange={(e) => setFormData({ ...formData, passportNumber: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
@@ -238,7 +238,7 @@ export default function CrewPage() {
             type="text"
             value={formData.nationality}
             onChange={(e) => setFormData({ ...formData, nationality: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
         <div>
@@ -249,7 +249,7 @@ export default function CrewPage() {
             type="date"
             value={formData.dateOfBirth}
             onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
@@ -263,7 +263,7 @@ export default function CrewPage() {
             type="tel"
             value={formData.phoneNumber}
             onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
         <div>
@@ -274,7 +274,7 @@ export default function CrewPage() {
             type="email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
@@ -288,7 +288,7 @@ export default function CrewPage() {
             required
             value={formData.position}
             onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           >
             <option value="CAPTAIN">Kaptan</option>
             <option value="CHIEF_OFFICER">Baş Zabitan</option>
@@ -308,7 +308,7 @@ export default function CrewPage() {
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           >
             <option value="ACTIVE">Aktif</option>
             <option value="ON_LEAVE">İzinli</option>
@@ -326,7 +326,7 @@ export default function CrewPage() {
             type="date"
             value={formData.joinDate}
             onChange={(e) => setFormData({ ...formData, joinDate: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
         <div>
@@ -337,7 +337,7 @@ export default function CrewPage() {
             type="number"
             value={formData.yearsOfExperience}
             onChange={(e) => setFormData({ ...formData, yearsOfExperience: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-input"
           />
         </div>
       </div>
@@ -349,7 +349,7 @@ export default function CrewPage() {
         <select
           value={formData.vesselId}
           onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
         >
           <option value="">Gemi Seçin</option>
           {vessels?.map((vessel: any) => (
@@ -368,7 +368,7 @@ export default function CrewPage() {
           value={formData.notes}
           onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="modal-select"
         />
       </div>
 
@@ -443,42 +443,63 @@ export default function CrewPage() {
       {/* Crew Members List */}
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
         {crewMembers && crewMembers.length > 0 ? (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {crewMembers.map((member: any) => {
-              const expiringCertsCount =
-                member.certificates?.filter((c: any) => {
-                  const status = getCertificateStatus(c.expiryDate);
-                  return status === 'warning' || status === 'expired';
-                }).length || 0;
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
+                    <span className="sr-only">İkon</span>
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
+                    Mürettebat
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[280px]">
+                    Pozisyon / Gemi / Uyruk
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
+                    Sertifika
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[60px]">
+                    Durum
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
+                    <span className="sr-only">İşlemler</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {crewMembers.map((member: any) => {
+                  const expiringCertsCount =
+                    member.certificates?.filter((c: any) => {
+                      const status = getCertificateStatus(c.expiryDate);
+                      return status === 'warning' || status === 'expired';
+                    }).length || 0;
 
-              return (
-                <li key={member.id}>
-                  <div className="px-4 py-4 sm:px-6">
-                    <div className="flex items-center justify-between">
-                      <Link to={`/crew/${member.id}`} className="flex-1">
-                        <div className="flex items-center">
-                          <Users className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
-                          <div>
-                            <p className="text-sm font-medium text-gray-900 dark:text-white">
-                              {member.firstName} {member.lastName}
-                            </p>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                              {member.position} | {member.vessel?.name || 'Atanmamış'} |{' '}
-                              {member.nationality || 'N/A'}
-                            </p>
-                          </div>
+                  return (
+                    <tr key={member.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      </td>
+                      <td className="px-4 py-4">
+                        <Link to={`/crew/${member.id}`} className="text-sm font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 truncate max-w-[200px] block">
+                          {member.firstName} {member.lastName}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[280px]">
+                          {member.position} | {member.vessel?.name || 'Atanmamış'} | {member.nationality || 'N/A'}
                         </div>
-                      </Link>
-                      <div className="flex items-center space-x-4">
-                        {/* Certificate Count - Always shown with icon, fixed width */}
-                        <div className="flex items-center space-x-2 w-[140px]">
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2">
                           <FileCheck className="h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
                           <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
                             {member.certificates?.length || 0} sertifika
                           </span>
                         </div>
-                        {/* Status Icon - Fixed width container for alignment */}
-                        <div className="flex items-center justify-start w-[60px]">
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <div className="flex items-center justify-start">
                           {expiringCertsCount > 0 ? (
                             <div className="flex items-center space-x-1">
                               <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0" />
@@ -492,30 +513,34 @@ export default function CrewPage() {
                             <AlertTriangle className="h-4 w-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                           )}
                         </div>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleEdit(member);
-                          }}
-                          className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                          title="Düzenle"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={(e) => handleDelete(member.id, e)}
-                          className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                          title="Sil"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex items-center justify-end space-x-2">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleEdit(member);
+                            }}
+                            className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                            title="Düzenle"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={(e) => handleDelete(member.id, e)}
+                            className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
+                            title="Sil"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="px-4 py-12 text-center">
             <Users className="mx-auto h-12 w-12 text-gray-400" />
@@ -532,7 +557,7 @@ export default function CrewPage() {
       {/* Create Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+          <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Yeni Mürettebat Ekle
@@ -555,7 +580,7 @@ export default function CrewPage() {
       {/* Edit Modal */}
       {isEditModalOpen && editingMember && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+          <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Mürettebat Düzenle
