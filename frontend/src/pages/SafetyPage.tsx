@@ -142,19 +142,19 @@ export default function SafetyPage() {
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getDrillTypeLabel = (type: string) => {
     switch (type) {
       case 'FIRE':
-        return 'Yangın';
+        return 'Fire';
       case 'ABANDON_SHIP':
-        return 'Gemiyi Terk';
+        return 'Abandon Ship';
       case 'MAN_OVERBOARD':
-        return 'Denize Düşen';
+        return 'Man Overboard';
       case 'EMERGENCY':
-        return 'Acil Durum';
+        return 'Emergency';
       default:
         return type;
     }
@@ -178,7 +178,7 @@ export default function SafetyPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Gemi <span className="text-red-500">*</span>
+            Vessel <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -186,7 +186,7 @@ export default function SafetyPage() {
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="">Gemi Seçin</option>
+            <option value="">Select Vessel</option>
             {vessels?.map((vessel: any) => (
               <option key={vessel.id} value={vessel.id}>
                 {vessel.name}
@@ -196,7 +196,7 @@ export default function SafetyPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tatbikat Tipi <span className="text-red-500">*</span>
+            Drill Type <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -204,11 +204,11 @@ export default function SafetyPage() {
             onChange={(e) => setFormData({ ...formData, drillType: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="FIRE">Yangın</option>
-            <option value="ABANDON_SHIP">Gemiyi Terk</option>
-            <option value="MAN_OVERBOARD">Denize Düşen</option>
-            <option value="EMERGENCY">Acil Durum</option>
-            <option value="OTHER">Diğer</option>
+            <option value="FIRE">Fire</option>
+            <option value="ABANDON_SHIP">Abandon Ship</option>
+            <option value="MAN_OVERBOARD">Man Overboard</option>
+            <option value="EMERGENCY">Emergency</option>
+            <option value="OTHER">Other</option>
           </select>
         </div>
       </div>
@@ -216,7 +216,7 @@ export default function SafetyPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Planlanan Tarih <span className="text-red-500">*</span>
+            Planned Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -228,16 +228,16 @@ export default function SafetyPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Durum
+            Status
           </label>
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="PLANNED">Planlandı</option>
-            <option value="COMPLETED">Tamamlandı</option>
-            <option value="CANCELLED">İptal Edildi</option>
+            <option value="PLANNED">Planned</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="CANCELLED">Cancelled</option>
           </select>
         </div>
       </div>
@@ -246,7 +246,7 @@ export default function SafetyPage() {
         <>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Gerçekleşen Tarih
+              Actual Date
             </label>
             <input
               type="date"
@@ -259,7 +259,7 @@ export default function SafetyPage() {
           <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Başlangıç Saati
+                Start Time
               </label>
               <input
                 type="time"
@@ -270,7 +270,7 @@ export default function SafetyPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Bitiş Saati
+                End Time
               </label>
               <input
                 type="time"
@@ -281,7 +281,7 @@ export default function SafetyPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Süre (Dakika)
+                Duration (Minutes)
               </label>
               <input
                 type="number"
@@ -294,39 +294,39 @@ export default function SafetyPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Katılımcılar
+              Participants
             </label>
             <textarea
               value={formData.participants}
               onChange={(e) => setFormData({ ...formData, participants: e.target.value })}
               rows={2}
-              placeholder="Katılan mürettebat..."
+              placeholder="Participating crew..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Gözlemler
+              Observations
             </label>
             <textarea
               value={formData.observations}
               onChange={(e) => setFormData({ ...formData, observations: e.target.value })}
               rows={3}
-              placeholder="Tatbikat sırasında gözlemlenenler..."
+              placeholder="Observations during the drill..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              İyileştirmeler
+              Improvements
             </label>
             <textarea
               value={formData.improvements}
               onChange={(e) => setFormData({ ...formData, improvements: e.target.value })}
               rows={2}
-              placeholder="Önerilen iyileştirmeler..."
+              placeholder="Recommended improvements..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
@@ -335,13 +335,13 @@ export default function SafetyPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Notlar
+          Remarks
         </label>
         <textarea
           value={formData.remarks}
           onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
           rows={2}
-          placeholder="Ek notlar..."
+          placeholder="Additional notes..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
@@ -360,7 +360,7 @@ export default function SafetyPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -369,11 +369,11 @@ export default function SafetyPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -384,10 +384,10 @@ export default function SafetyPage() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
-            Güvenlik Tatbikatları
+            Safety Drills
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            ISM/ISPS uyumluluk takibi ve güvenlik tatbikatları
+            ISM/ISPS compliance tracking and safety drills
           </p>
         </div>
         <button
@@ -395,7 +395,7 @@ export default function SafetyPage() {
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Yeni Tatbikat
+          New Drill
         </button>
       </div>
 
@@ -418,13 +418,13 @@ export default function SafetyPage() {
                           </p>
                           {drill.actualDate && (
                             <p className="text-xs text-gray-500 dark:text-gray-400">
-                              Gerçekleşti: {formatDate(drill.actualDate)}
+                              Actual: {formatDate(drill.actualDate)}
                             </p>
                           )}
                           {drill.durationMinutes && (
                             <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
                               <Clock className="h-3 w-3 mr-1" />
-                              {drill.durationMinutes} dk
+                              {drill.durationMinutes} min
                             </div>
                           )}
                         </div>
@@ -445,22 +445,22 @@ export default function SafetyPage() {
                         className={`px-2 py-1 text-xs rounded-full ${getStatusColor(drill.status)}`}
                       >
                         {drill.status === 'COMPLETED'
-                          ? 'Tamamlandı'
+                          ? 'Completed'
                           : drill.status === 'PLANNED'
-                          ? 'Planlandı'
-                          : 'İptal Edildi'}
+                          ? 'Planned'
+                          : 'Cancelled'}
                       </span>
                       <button
                         onClick={() => handleEdit(drill)}
                         className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
+                        title="Edit"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(drill.id)}
                         className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
+                        title="Delete"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -474,10 +474,10 @@ export default function SafetyPage() {
           <div className="px-4 py-12 text-center">
             <Shield className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Güvenlik tatbikatı bulunamadı
+              No safety drills found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Henüz güvenlik tatbikatı eklenmemiş.
+              No safety drills added yet.
             </p>
           </div>
         )}
@@ -487,7 +487,7 @@ export default function SafetyPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yeni Güvenlik Tatbikatı</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Safety Drill</h3>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -508,7 +508,7 @@ export default function SafetyPage() {
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Güvenlik Tatbikatı Düzenle
+                Edit Safety Drill
               </h3>
               <button
                 onClick={() => {

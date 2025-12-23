@@ -158,13 +158,13 @@ export default function FuelManagementPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu yakıt kaydını silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this fuel record?')) {
       deleteMutation.mutate(id);
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   // Prepare chart data
@@ -184,7 +184,7 @@ export default function FuelManagementPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Gemi <span className="text-red-500">*</span>
+            Vessel <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -192,7 +192,7 @@ export default function FuelManagementPage() {
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="">Gemi Seçin</option>
+            <option value="">Select Vessel</option>
             {vessels?.map((vessel: any) => (
               <option key={vessel.id} value={vessel.id}>
                 {vessel.name}
@@ -202,7 +202,7 @@ export default function FuelManagementPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            İşlem Tipi <span className="text-red-500">*</span>
+            Operation Type <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -211,7 +211,7 @@ export default function FuelManagementPage() {
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
             <option value="BUNKER">Bunker</option>
-            <option value="CONSUMPTION">Tüketim</option>
+            <option value="CONSUMPTION">Consumption</option>
             <option value="TRANSFER">Transfer</option>
           </select>
         </div>
@@ -220,7 +220,7 @@ export default function FuelManagementPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tarih <span className="text-red-500">*</span>
+            Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -232,7 +232,7 @@ export default function FuelManagementPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Miktar (Litre) <span className="text-red-500">*</span>
+            Quantity (Liters) <span className="text-red-500">*</span>
           </label>
           <input
             type="number"
@@ -250,7 +250,7 @@ export default function FuelManagementPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Birim Fiyat (USD)
+                Unit Price (USD)
               </label>
               <input
                 type="number"
@@ -262,7 +262,7 @@ export default function FuelManagementPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Toplam Maliyet (USD)
+                Total Cost (USD)
               </label>
               <input
                 type="number"
@@ -276,7 +276,7 @@ export default function FuelManagementPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Tedarikçi
+                Supplier
               </label>
               <input
                 type="text"
@@ -287,7 +287,7 @@ export default function FuelManagementPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Liman
+                Port
               </label>
               <input
                 type="text"
@@ -299,13 +299,13 @@ export default function FuelManagementPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Kalite Testi
+              Quality Test
             </label>
             <textarea
               value={formData.qualityTest}
               onChange={(e) => setFormData({ ...formData, qualityTest: e.target.value })}
               rows={2}
-              placeholder="Kalite test sonuçları..."
+              placeholder="Quality test results..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
@@ -326,7 +326,7 @@ export default function FuelManagementPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Önceki Seviye (%)
+            Level Before (%)
           </label>
           <input
             type="number"
@@ -338,7 +338,7 @@ export default function FuelManagementPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Sonraki Seviye (%)
+            Level After (%)
           </label>
           <input
             type="number"
@@ -352,13 +352,13 @@ export default function FuelManagementPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Notlar
+          Remarks
         </label>
         <textarea
           value={formData.remarks}
           onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
           rows={2}
-          placeholder="Ek notlar..."
+          placeholder="Additional notes..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
@@ -377,7 +377,7 @@ export default function FuelManagementPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -386,11 +386,11 @@ export default function FuelManagementPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -401,9 +401,9 @@ export default function FuelManagementPage() {
       {/* Header with Create Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Yakıt Yönetimi</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Fuel Management</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Bunker operasyonları ve yakıt tüketim takibi
+            Bunker operations and fuel consumption tracking
           </p>
         </div>
         <div className="flex items-center space-x-4">
@@ -421,7 +421,7 @@ export default function FuelManagementPage() {
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Yeni Kayıt
+            New Entry
           </button>
         </div>
       </div>
@@ -431,7 +431,7 @@ export default function FuelManagementPage() {
         {consumptionData.length > 0 && (
           <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              Günlük Tüketim
+              Daily Consumption
             </h3>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={consumptionData}>
@@ -440,7 +440,7 @@ export default function FuelManagementPage() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="quantity" fill="#3b82f6" name="Tüketim (Litre)" />
+                <Bar dataKey="quantity" fill="#3b82f6" name="Consumption (Liters)" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -448,7 +448,7 @@ export default function FuelManagementPage() {
         {bunkerData.length > 0 && (
           <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              Bunker Operasyonları
+              Bunker Operations
             </h3>
             <ResponsiveContainer width="100%" height={250}>
               <LineChart data={bunkerData}>
@@ -458,8 +458,8 @@ export default function FuelManagementPage() {
                 <YAxis yAxisId="right" orientation="right" />
                 <Tooltip />
                 <Legend />
-                <Line yAxisId="left" type="monotone" dataKey="quantity" stroke="#3b82f6" name="Miktar (Litre)" />
-                <Line yAxisId="right" type="monotone" dataKey="cost" stroke="#10b981" name="Maliyet (USD)" />
+                <Line yAxisId="left" type="monotone" dataKey="quantity" stroke="#3b82f6" name="Quantity (Liters)" />
+                <Line yAxisId="right" type="monotone" dataKey="cost" stroke="#10b981" name="Cost (USD)" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -482,7 +482,7 @@ export default function FuelManagementPage() {
                             {fuel.operationType === 'BUNKER'
                               ? 'Bunker'
                               : fuel.operationType === 'CONSUMPTION'
-                              ? 'Tüketim'
+                              ? 'Consumption'
                               : 'Transfer'}
                           </p>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -514,14 +514,14 @@ export default function FuelManagementPage() {
                       <button
                         onClick={() => handleEdit(fuel)}
                         className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
+                        title="Edit"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(fuel.id)}
                         className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
+                        title="Delete"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -535,10 +535,10 @@ export default function FuelManagementPage() {
           <div className="px-4 py-12 text-center">
             <Fuel className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Yakıt kaydı bulunamadı
+              No fuel records found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {formatDate(selectedDate)} tarihi için henüz kayıt eklenmemiş.
+              No records added yet for {formatDate(selectedDate)}.
             </p>
           </div>
         )}
@@ -549,7 +549,7 @@ export default function FuelManagementPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yeni Yakıt Kaydı</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Fuel Record</h3>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -570,7 +570,7 @@ export default function FuelManagementPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yakıt Kaydı Düzenle</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Edit Fuel Record</h3>
               <button
                 onClick={() => {
                   setIsEditModalOpen(false);

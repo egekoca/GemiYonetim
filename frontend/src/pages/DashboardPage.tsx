@@ -61,17 +61,17 @@ export default function DashboardPage() {
   // Prepare chart data
   const maintenanceChartData = maintenanceStats
     ? [
-        { name: 'Tamamlanan', value: maintenanceStats.completed, color: '#10b981' },
-        { name: 'Bekleyen', value: maintenanceStats.pending, color: '#f59e0b' },
-        { name: 'Devam Eden', value: maintenanceStats.inProgress || 0, color: '#3b82f6' },
-        { name: 'Geciken', value: maintenanceStats.overdue, color: '#ef4444' },
+        { name: 'Completed', value: maintenanceStats.completed, color: '#10b981' },
+        { name: 'Pending', value: maintenanceStats.pending, color: '#f59e0b' },
+        { name: 'In Progress', value: maintenanceStats.inProgress || 0, color: '#3b82f6' },
+        { name: 'Overdue', value: maintenanceStats.overdue, color: '#ef4444' },
       ].filter((item) => item.value > 0)
     : [];
 
   const certificateChartData = [
-    { name: 'Aktif', value: 10, color: '#10b981' },
-    { name: 'Yakında Dolacak', value: certificates?.length || 0, color: '#f59e0b' },
-    { name: 'Süresi Dolmuş', value: expired?.length || 0, color: '#ef4444' },
+    { name: 'Active', value: 10, color: '#10b981' },
+    { name: 'Expiring Soon', value: certificates?.length || 0, color: '#f59e0b' },
+    { name: 'Expired', value: expired?.length || 0, color: '#ef4444' },
   ].filter((item) => item.value > 0);
 
   return (
@@ -88,7 +88,7 @@ export default function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                    Toplam Gemi
+                    Total Vessels
                   </dt>
                   <dd className="text-lg font-medium text-gray-900 dark:text-white">
                     {vessels?.length || 0}
@@ -108,7 +108,7 @@ export default function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                    Yakında Dolacak Sertifika
+                    Expiring Certificates
                   </dt>
                   <dd className="text-lg font-medium text-gray-900 dark:text-white">
                     {kpis?.expiringCertificates || 0}
@@ -128,7 +128,7 @@ export default function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                    Geciken Bakım
+                    Overdue Maintenance
                   </dt>
                   <dd className="text-lg font-medium text-gray-900 dark:text-white">
                     {kpis?.overdueTasks || 0}
@@ -148,7 +148,7 @@ export default function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                    Düşük Stok
+                    Low Stock
                   </dt>
                   <dd className="text-lg font-medium text-gray-900 dark:text-white">
                     {kpis?.lowStockItems || 0}
@@ -166,7 +166,7 @@ export default function DashboardPage() {
         {maintenanceChartData.length > 0 && (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              Bakım Görevleri Durumu
+              Maintenance Tasks Status
             </h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -194,7 +194,7 @@ export default function DashboardPage() {
         {certificateChartData.length > 0 && (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              Sertifika Durumu
+              Certificate Status
             </h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -223,7 +223,7 @@ export default function DashboardPage() {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-            Son Bakım Görevleri
+            Recent Maintenance Tasks
           </h3>
         </div>
         <div className="overflow-x-auto">
@@ -231,19 +231,19 @@ export default function DashboardPage() {
             <thead className="bg-gray-50 dark:bg-gray-900">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Görev
+                  Task
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Gemi
+                  Vessel
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Durum
+                  Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Bitiş Tarihi
+                  Due Date
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Öncelik
+                  Priority
                 </th>
               </tr>
             </thead>
@@ -301,13 +301,13 @@ export default function DashboardPage() {
                         )}`}
                       >
                         {task.status === 'COMPLETED'
-                          ? 'Tamamlandı'
+                          ? 'Completed'
                           : task.status === 'IN_PROGRESS'
-                          ? 'Devam Ediyor'
+                          ? 'In Progress'
                           : task.status === 'OVERDUE'
-                          ? 'Gecikmiş'
+                          ? 'Overdue'
                           : task.status === 'PENDING'
-                          ? 'Bekliyor'
+                          ? 'Pending'
                           : task.status}
                       </span>
                     </td>
@@ -317,13 +317,13 @@ export default function DashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`text-sm font-medium ${getPriorityColor(task.priority)}`}>
                         {task.priority === 'CRITICAL'
-                          ? 'Kritik'
+                          ? 'Critical'
                           : task.priority === 'HIGH'
-                          ? 'Yüksek'
+                          ? 'High'
                           : task.priority === 'MEDIUM'
-                          ? 'Orta'
+                          ? 'Medium'
                           : task.priority === 'LOW'
-                          ? 'Düşük'
+                          ? 'Low'
                           : task.priority}
                       </span>
                     </td>
@@ -333,7 +333,7 @@ export default function DashboardPage() {
               {(!maintenanceTasks || maintenanceTasks.length === 0) && (
                 <tr>
                   <td colSpan={5} className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                    Bakım görevi bulunamadı
+                    No maintenance tasks found
                   </td>
                 </tr>
               )}

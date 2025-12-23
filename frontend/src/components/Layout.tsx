@@ -66,39 +66,39 @@ export default function Layout() {
 
   const navigation: NavigationItem[] = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Gemiler', href: '/vessels', icon: Ship },
+    { name: 'Vessels', href: '/vessels', icon: Ship },
     {
-      name: 'Dokümanlar',
+      name: 'Documents',
       href: '#',
       icon: FileText,
       children: [
-        { name: 'Dokümanlar', href: '/documents', icon: FileText },
-        { name: 'Sertifikalar', href: '/certificates', icon: FileCheck },
+        { name: 'Documents', href: '/documents', icon: FileText },
+        { name: 'Certificates', href: '/certificates', icon: FileCheck },
       ],
     },
-    { name: 'Mürettebat', href: '/crew', icon: Users },
-    { name: 'Envanter', href: '/inventory', icon: Package },
-    { name: 'Tedarik', href: '/procurement', icon: ShoppingCart },
-    { name: 'Bakım', href: '/maintenance', icon: Wrench },
-    { name: 'Seferler', href: '/voyages', icon: Navigation },
-    { name: 'Yakıt Yönetimi', href: '/fuel-management', icon: Package },
+    { name: 'Crew', href: '/crew', icon: Users },
+    { name: 'Inventory', href: '/inventory', icon: Package },
+    { name: 'Procurement', href: '/procurement', icon: ShoppingCart },
+    { name: 'Maintenance', href: '/maintenance', icon: Wrench },
+    { name: 'Voyages', href: '/voyages', icon: Navigation },
+    { name: 'Fuel Management', href: '/fuel-management', icon: Package },
     {
-      name: 'Jurnaller',
+      name: 'Logbooks',
       href: '#',
       icon: BookOpen,
       children: [
-        { name: 'Gemi Jurnali', href: '/logbook', icon: FileText },
-        { name: 'Makine Jurnali', href: '/engine-log', icon: Wrench },
+        { name: 'Ship Logbook', href: '/logbook', icon: FileText },
+        { name: 'Engine Logbook', href: '/engine-log', icon: Wrench },
       ],
     },
     {
-      name: 'Güvenlik',
+      name: 'Safety',
       href: '#',
       icon: Shield,
       children: [
-        { name: 'PSC Hazırlık', href: '/psc', icon: FileCheck },
-        { name: 'Güvenlik Tatbikatları', href: '/safety', icon: Users },
-        { name: 'Olay Raporlama', href: '/incidents', icon: AlertTriangle },
+        { name: 'PSC Preparation', href: '/psc', icon: FileCheck },
+        { name: 'Safety Drills', href: '/safety', icon: Users },
+        { name: 'Incident Reporting', href: '/incidents', icon: AlertTriangle },
       ],
     },
   ];
@@ -107,22 +107,22 @@ export default function Layout() {
   const getCurrentPageName = () => {
     // Special cases for detail pages
     if (location.pathname.startsWith('/crew/') && location.pathname !== '/crew') {
-      return 'Mürettebat Detayı';
+      return 'Crew Detail';
     }
     if (location.pathname === '/inventory/transactions') {
-      return 'Stok Hareketleri';
+      return 'Stock Transactions';
     }
     if (location.pathname === '/procurement/orders') {
-      return 'Siparişler';
+      return 'Orders';
     }
     if (location.pathname === '/procurement/suppliers') {
-      return 'Tedarikçiler';
+      return 'Suppliers';
     }
     if (location.pathname === '/maintenance/work-orders') {
-      return 'İş Emirleri';
+      return 'Work Orders';
     }
     if (location.pathname === '/crew-rotation') {
-      return 'Rotasyon Takvimi';
+      return 'Rotation Schedule';
     }
     
     // Check in navigation items and their children
@@ -304,7 +304,7 @@ export default function Layout() {
                           className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
                         >
                           <LogOut className="w-4 h-4 mr-2" />
-                          Çıkış Yap
+                          Logout
                         </button>
                       </div>
                     </>

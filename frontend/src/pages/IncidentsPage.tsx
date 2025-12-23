@@ -246,13 +246,13 @@ export default function IncidentsPage() {
   const getSeverityLabel = (severity: string) => {
     switch (severity) {
       case 'CRITICAL':
-        return 'Kritik';
+        return 'Critical';
       case 'HIGH':
-        return 'Yüksek';
+        return 'High';
       case 'MEDIUM':
-        return 'Orta';
+        return 'Medium';
       case 'LOW':
-        return 'Düşük';
+        return 'Low';
       default:
         return severity;
     }
@@ -261,20 +261,20 @@ export default function IncidentsPage() {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case 'CLOSED':
-        return 'Kapatıldı';
+        return 'Closed';
       case 'RESOLVED':
-        return 'Çözüldü';
+        return 'Resolved';
       case 'UNDER_INVESTIGATION':
-        return 'İncelemede';
+        return 'Under Investigation';
       case 'REPORTED':
-        return 'Raporlandı';
+        return 'Reported';
       default:
         return status;
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const renderForm = (onSubmit: (e: React.FormEvent) => void, isEdit: boolean) => (
@@ -282,7 +282,7 @@ export default function IncidentsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Gemi <span className="text-red-500">*</span>
+            Vessel <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -290,7 +290,7 @@ export default function IncidentsPage() {
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="">Gemi Seçin</option>
+            <option value="">Select Vessel</option>
             {vessels?.map((vessel: any) => (
               <option key={vessel.id} value={vessel.id}>
                 {vessel.name}
@@ -300,7 +300,7 @@ export default function IncidentsPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Olay Tipi <span className="text-red-500">*</span>
+            Incident Type <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -308,11 +308,11 @@ export default function IncidentsPage() {
             onChange={(e) => setFormData({ ...formData, incidentType: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="ACCIDENT">Kaza</option>
-            <option value="NEAR_MISS">Yakın Kaza</option>
-            <option value="NON_CONFORMITY">Uyumsuzluk</option>
-            <option value="ENVIRONMENTAL">Çevresel</option>
-            <option value="OTHER">Diğer</option>
+            <option value="ACCIDENT">Accident</option>
+            <option value="NEAR_MISS">Near Miss</option>
+            <option value="NON_CONFORMITY">Non-Conformity</option>
+            <option value="ENVIRONMENTAL">Environmental</option>
+            <option value="OTHER">Other</option>
           </select>
         </div>
       </div>
@@ -320,7 +320,7 @@ export default function IncidentsPage() {
       <div className="grid grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Olay Tarihi <span className="text-red-500">*</span>
+            Incident Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -332,39 +332,39 @@ export default function IncidentsPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Şiddet
+            Severity
           </label>
           <select
             value={formData.severity}
             onChange={(e) => setFormData({ ...formData, severity: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="LOW">Düşük</option>
-            <option value="MEDIUM">Orta</option>
-            <option value="HIGH">Yüksek</option>
-            <option value="CRITICAL">Kritik</option>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+            <option value="CRITICAL">Critical</option>
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Durum
+            Status
           </label>
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="REPORTED">Raporlandı</option>
-            <option value="UNDER_INVESTIGATION">İncelemede</option>
-            <option value="RESOLVED">Çözüldü</option>
-            <option value="CLOSED">Kapatıldı</option>
+            <option value="REPORTED">Reported</option>
+            <option value="UNDER_INVESTIGATION">Under Investigation</option>
+            <option value="RESOLVED">Resolved</option>
+            <option value="CLOSED">Closed</option>
           </select>
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Başlık <span className="text-red-500">*</span>
+          Title <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -372,20 +372,20 @@ export default function IncidentsPage() {
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
-          placeholder="Olay başlığı..."
+          placeholder="Incident title..."
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Açıklama <span className="text-red-500">*</span>
+          Description <span className="text-red-500">*</span>
         </label>
         <textarea
           required
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={4}
-          placeholder="Olayın detaylı açıklaması..."
+          placeholder="Detailed description of the incident..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
@@ -393,20 +393,20 @@ export default function IncidentsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Konum
+            Location
           </label>
           <input
             type="text"
             value={formData.location}
             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
-            placeholder="Örn: Engine Room, Deck..."
+            placeholder="e.g., Engine Room, Deck..."
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Enlem
+              Latitude
             </label>
             <input
               type="number"
@@ -419,7 +419,7 @@ export default function IncidentsPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Boylam
+              Longitude
             </label>
             <input
               type="number"
@@ -435,13 +435,13 @@ export default function IncidentsPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Acil Müdahaleler
+          Immediate Actions
         </label>
         <textarea
           value={formData.immediateActions}
           onChange={(e) => setFormData({ ...formData, immediateActions: e.target.value })}
           rows={3}
-          placeholder="Olay sonrası alınan acil önlemler..."
+          placeholder="Immediate actions taken after the incident..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
@@ -450,52 +450,52 @@ export default function IncidentsPage() {
         <>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              İnceleme
+              Investigation
             </label>
             <textarea
               value={formData.investigation}
               onChange={(e) => setFormData({ ...formData, investigation: e.target.value })}
               rows={3}
-              placeholder="İnceleme sonuçları..."
+              placeholder="Investigation results..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Kök Neden
+              Root Cause
             </label>
             <textarea
               value={formData.rootCause}
               onChange={(e) => setFormData({ ...formData, rootCause: e.target.value })}
               rows={2}
-              placeholder="Olayın kök nedeni..."
+              placeholder="Root cause of the incident..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Düzeltici Önlemler
+              Corrective Actions
             </label>
             <textarea
               value={formData.correctiveActions}
               onChange={(e) => setFormData({ ...formData, correctiveActions: e.target.value })}
               rows={2}
-              placeholder="Alınan düzeltici önlemler..."
+              placeholder="Corrective actions taken..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Önleyici Önlemler
+              Preventive Actions
             </label>
             <textarea
               value={formData.preventiveActions}
               onChange={(e) => setFormData({ ...formData, preventiveActions: e.target.value })}
               rows={2}
-              placeholder="Alınan önleyici önlemler..."
+              placeholder="Preventive actions taken..."
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
             />
           </div>
@@ -504,7 +504,7 @@ export default function IncidentsPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Fotoğraflar
+          Photos
         </label>
         <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-600">
           <div className="space-y-1 text-center">
@@ -514,7 +514,7 @@ export default function IncidentsPage() {
                 htmlFor="photo-upload"
                 className="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
               >
-                <span>Fotoğraf yükleyin</span>
+                <span>Upload photos</span>
                 <input
                   id="photo-upload"
                   name="photo-upload"
@@ -525,7 +525,7 @@ export default function IncidentsPage() {
                   onChange={handleFileChange}
                 />
               </label>
-              <p className="pl-1">veya sürükleyip bırakın</p>
+              <p className="pl-1">or drag and drop</p>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF (max. 5MB each)</p>
           </div>
@@ -562,7 +562,7 @@ export default function IncidentsPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -571,11 +571,11 @@ export default function IncidentsPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -585,9 +585,9 @@ export default function IncidentsPage() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Olay Raporları</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Incident Reports</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Kaza, yakın kaza ve uyumsuzluk raporları
+            Accident, near miss, and non-conformity reports
           </p>
         </div>
         <button
@@ -595,7 +595,7 @@ export default function IncidentsPage() {
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Yeni Olay Raporu
+          New Incident Report
         </button>
       </div>
 
@@ -653,14 +653,14 @@ export default function IncidentsPage() {
                       <button
                         onClick={() => handleEdit(incident)}
                         className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
+                        title="Edit"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(incident.id)}
                         className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
+                        title="Delete"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -674,10 +674,10 @@ export default function IncidentsPage() {
           <div className="px-4 py-12 text-center">
             <AlertTriangle className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Olay raporu bulunamadı
+              No incident reports found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Henüz olay raporu eklenmemiş.
+              No incident reports added yet.
             </p>
           </div>
         )}
@@ -687,7 +687,7 @@ export default function IncidentsPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-3xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yeni Olay Raporu</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Incident Report</h3>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -707,7 +707,7 @@ export default function IncidentsPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-3xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Olay Raporu Düzenle</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Edit Incident Report</h3>
               <button
                 onClick={() => {
                   setIsEditModalOpen(false);

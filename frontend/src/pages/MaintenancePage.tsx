@@ -154,13 +154,13 @@ export default function MaintenancePage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu bakım görevini silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this maintenance task?')) {
       deleteMutation.mutate(id);
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getStatusColor = (status: string) => {
@@ -195,7 +195,7 @@ export default function MaintenancePage() {
     <form onSubmit={onSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto">
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Başlık <span className="text-red-500">*</span>
+          Title <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -208,7 +208,7 @@ export default function MaintenancePage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Açıklama
+          Description
         </label>
         <textarea
           value={formData.description}
@@ -221,7 +221,7 @@ export default function MaintenancePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Gemi <span className="text-red-500">*</span>
+            Vessel <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -229,7 +229,7 @@ export default function MaintenancePage() {
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="modal-select"
           >
-            <option value="">Gemi Seçin</option>
+            <option value="">Select Vessel</option>
             {vessels?.map((vessel: any) => (
               <option key={vessel.id} value={vessel.id}>
                 {vessel.name}
@@ -239,17 +239,17 @@ export default function MaintenancePage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Durum
+            Status
           </label>
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             className="modal-select"
           >
-            <option value="PENDING">Bekliyor</option>
-            <option value="IN_PROGRESS">Devam Ediyor</option>
-            <option value="COMPLETED">Tamamlandı</option>
-            <option value="OVERDUE">Gecikmiş</option>
+            <option value="PENDING">Pending</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="OVERDUE">Overdue</option>
           </select>
         </div>
       </div>
@@ -257,22 +257,22 @@ export default function MaintenancePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Öncelik
+            Priority
           </label>
           <select
             value={formData.priority}
             onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
             className="modal-select"
           >
-            <option value="LOW">Düşük</option>
-            <option value="MEDIUM">Orta</option>
-            <option value="HIGH">Yüksek</option>
-            <option value="CRITICAL">Kritik</option>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+            <option value="CRITICAL">Critical</option>
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Bitiş Tarihi <span className="text-red-500">*</span>
+            Due Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -287,7 +287,7 @@ export default function MaintenancePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Ekipman
+            Equipment
           </label>
           <input
             type="text"
@@ -298,7 +298,7 @@ export default function MaintenancePage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Konum
+            Location
           </label>
           <input
             type="text"
@@ -312,14 +312,14 @@ export default function MaintenancePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Atanan Kişi
+            Assigned To
           </label>
           <select
             value={formData.assignedToId}
             onChange={(e) => setFormData({ ...formData, assignedToId: e.target.value })}
             className="modal-select"
           >
-            <option value="">Atanmamış</option>
+            <option value="">Unassigned</option>
             {crewMembers?.map((member: any) => (
               <option key={member.id} value={member.id}>
                 {member.firstName} {member.lastName} - {member.position}
@@ -329,7 +329,7 @@ export default function MaintenancePage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tahmini Süre (Saat)
+            Estimated Hours
           </label>
           <input
             type="number"
@@ -354,7 +354,7 @@ export default function MaintenancePage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -363,11 +363,11 @@ export default function MaintenancePage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -378,9 +378,9 @@ export default function MaintenancePage() {
       {/* Header with Create Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Bakım Yönetimi</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Maintenance</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Planlı bakım sistemi (PMS) ve iş emirleri
+            Planned maintenance system (PMS) and work orders
           </p>
         </div>
         <button
@@ -388,14 +388,14 @@ export default function MaintenancePage() {
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Yeni Bakım Görevi
+          New Maintenance Task
         </button>
       </div>
 
       {overdueTasks && overdueTasks.length > 0 && (
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
           <h3 className="text-lg font-medium text-red-800 dark:text-red-400 mb-2">
-            Geciken Bakım Görevleri ({overdueTasks.length})
+            Overdue Maintenance Tasks ({overdueTasks.length})
           </h3>
           <ul className="list-disc list-inside text-sm text-red-700 dark:text-red-300">
             {overdueTasks.slice(0, 5).map((task: any) => (
@@ -415,25 +415,25 @@ export default function MaintenancePage() {
               <thead className="bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
-                    <span className="sr-only">İkon</span>
+                    <span className="sr-only">Icon</span>
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
-                    Görev
+                    Task
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
-                    Gemi / Ekipman / Konum
+                    Vessel / Equipment / Location
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[180px]">
-                    Bitiş Tarihi / Öncelik
+                    Due Date / Priority
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
-                    Süre
+                    Duration
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
-                    Durum
+                    Status
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
-                    <span className="sr-only">İşlemler</span>
+                    <span className="sr-only">Actions</span>
                   </th>
                 </tr>
               </thead>
@@ -450,33 +450,33 @@ export default function MaintenancePage() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[300px]">
-                        {task.vessel?.name} | {task.equipment || 'Ekipman belirtilmemiş'} | {task.location || 'Konum belirtilmemiş'}
+                        {task.vessel?.name} | {task.equipment || 'Equipment not specified'} | {task.location || 'Location not specified'}
                       </div>
                     </td>
                     <td className="px-4 py-4">
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Bitiş: {formatDate(task.dueDate)}
+                        Due: {formatDate(task.dueDate)}
                       </div>
                       <div className={`text-xs mt-1 ${getPriorityColor(task.priority)}`}>
-                        Öncelik: {task.priority}
+                        Priority: {task.priority}
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       {task.estimatedHours && (
                         <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {task.estimatedHours} saat
+                          {task.estimatedHours} hours
                         </div>
                       )}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${getStatusColor(task.status)}`}>
                         {task.status === 'COMPLETED'
-                          ? 'Tamamlandı'
+                          ? 'Completed'
                           : task.status === 'IN_PROGRESS'
-                          ? 'Devam Ediyor'
+                          ? 'In Progress'
                           : task.status === 'OVERDUE'
-                          ? 'Gecikmiş'
-                          : 'Bekliyor'}
+                          ? 'Overdue'
+                          : 'Pending'}
                       </span>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -484,14 +484,14 @@ export default function MaintenancePage() {
                         <button
                           onClick={() => handleEdit(task)}
                           className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                          title="Düzenle"
+                          title="Edit"
                         >
                           <Edit className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(task.id)}
                           className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                          title="Sil"
+                          title="Delete"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -506,10 +506,10 @@ export default function MaintenancePage() {
           <div className="px-4 py-12 text-center">
             <Wrench className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Bakım görevi bulunamadı
+              No maintenance tasks found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Henüz bakım görevi eklenmemiş.
+              No maintenance tasks added yet.
             </p>
           </div>
         )}
@@ -521,7 +521,7 @@ export default function MaintenancePage() {
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Yeni Bakım Görevi
+                Add New Maintenance Task
               </h3>
               <button
                 onClick={() => {
@@ -544,7 +544,7 @@ export default function MaintenancePage() {
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Bakım Görevi Düzenle
+                Edit Maintenance Task
               </h3>
               <button
                 onClick={() => {

@@ -154,13 +154,13 @@ export default function CrewPage() {
   const handleDelete = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (confirm('Bu mürettebat üyesini silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this crew member?')) {
       deleteMutation.mutate(id);
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const renderForm = (onSubmit: (e: React.FormEvent) => void, isEdit: boolean) => (
@@ -168,7 +168,7 @@ export default function CrewPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Ad <span className="text-red-500">*</span>
+            First Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -180,7 +180,7 @@ export default function CrewPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Soyad <span className="text-red-500">*</span>
+            Last Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -194,7 +194,7 @@ export default function CrewPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          İkinci Ad
+          Middle Name
         </label>
         <input
           type="text"
@@ -207,7 +207,7 @@ export default function CrewPage() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Denizci ID
+            Seafarer ID
           </label>
           <input
             type="text"
@@ -218,7 +218,7 @@ export default function CrewPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Pasaport No
+            Passport Number
           </label>
           <input
             type="text"
@@ -232,7 +232,7 @@ export default function CrewPage() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Uyruk
+            Nationality
           </label>
           <input
             type="text"
@@ -243,7 +243,7 @@ export default function CrewPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Doğum Tarihi
+            Date of Birth
           </label>
           <input
             type="date"
@@ -257,7 +257,7 @@ export default function CrewPage() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Telefon
+            Phone
           </label>
           <input
             type="tel"
@@ -282,7 +282,7 @@ export default function CrewPage() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Pozisyon <span className="text-red-500">*</span>
+            Position <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -320,7 +320,7 @@ export default function CrewPage() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Katılım Tarihi
+            Join Date
           </label>
           <input
             type="date"
@@ -331,7 +331,7 @@ export default function CrewPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Deneyim (Yıl)
+            Years of Experience
           </label>
           <input
             type="number"
@@ -362,7 +362,7 @@ export default function CrewPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Notlar
+          Notes
         </label>
         <textarea
           value={formData.notes}
@@ -386,7 +386,7 @@ export default function CrewPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -395,11 +395,11 @@ export default function CrewPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -410,9 +410,9 @@ export default function CrewPage() {
       {/* Header with Create Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Mürettebat</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Crew</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Mürettebat profilleri, sertifikalar ve eğitimler
+            Crew profiles, certificates and training
           </p>
         </div>
         <button
@@ -420,14 +420,14 @@ export default function CrewPage() {
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Yeni Mürettebat Ekle
+          Add New Crew Member
         </button>
       </div>
 
       {expiringCerts && expiringCerts.length > 0 && (
         <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6">
           <h3 className="text-lg font-medium text-yellow-800 dark:text-yellow-400 mb-2">
-            Yakında Dolacak Mürettebat Sertifikaları ({expiringCerts.length})
+            Expiring Crew Certificates ({expiringCerts.length})
           </h3>
           <ul className="list-disc list-inside text-sm text-yellow-700 dark:text-yellow-300">
             {expiringCerts.slice(0, 5).map((cert: any) => (
@@ -448,22 +448,22 @@ export default function CrewPage() {
               <thead className="bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
-                    <span className="sr-only">İkon</span>
+                    <span className="sr-only">Icon</span>
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
-                    Mürettebat
+                    Crew
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[280px]">
-                    Pozisyon / Gemi / Uyruk
+                    Position / Vessel / Nationality
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
-                    Sertifika
+                    Certificates
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[60px]">
-                    Durum
+                    Status
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
-                    <span className="sr-only">İşlemler</span>
+                    <span className="sr-only">Actions</span>
                   </th>
                 </tr>
               </thead>
@@ -487,14 +487,14 @@ export default function CrewPage() {
                       </td>
                       <td className="px-4 py-4">
                         <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[280px]">
-                          {member.position} | {member.vessel?.name || 'Atanmamış'} | {member.nationality || 'N/A'}
+                          {member.position} | {member.vessel?.name || 'Unassigned'} | {member.nationality || 'N/A'}
                         </div>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
                         <div className="flex items-center space-x-2">
                           <FileCheck className="h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
                           <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                            {member.certificates?.length || 0} sertifika
+                            {member.certificates?.length || 0} certificates
                           </span>
                         </div>
                       </td>
@@ -522,14 +522,14 @@ export default function CrewPage() {
                               handleEdit(member);
                             }}
                             className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                            title="Düzenle"
+                            title="Edit"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
                           <button
                             onClick={(e) => handleDelete(member.id, e)}
                             className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                            title="Sil"
+                            title="Delete"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -545,10 +545,10 @@ export default function CrewPage() {
           <div className="px-4 py-12 text-center">
             <Users className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Mürettebat bulunamadı
+              No crew members found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Henüz mürettebat eklenmemiş.
+              No crew members added yet.
             </p>
           </div>
         )}
@@ -560,7 +560,7 @@ export default function CrewPage() {
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Yeni Mürettebat Ekle
+                Add New Crew Member
               </h3>
               <button
                 onClick={() => {
@@ -583,7 +583,7 @@ export default function CrewPage() {
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Mürettebat Düzenle
+                Edit Crew Member
               </h3>
               <button
                 onClick={() => {

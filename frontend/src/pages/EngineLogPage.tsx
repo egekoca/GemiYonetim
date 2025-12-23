@@ -168,13 +168,13 @@ export default function EngineLogPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu makine jurnal kaydını silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this engine log entry?')) {
       deleteMutation.mutate(id);
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   // Prepare chart data
@@ -190,7 +190,7 @@ export default function EngineLogPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Gemi <span className="text-red-500">*</span>
+            Vessel <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -198,7 +198,7 @@ export default function EngineLogPage() {
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="">Gemi Seçin</option>
+            <option value="">Select Vessel</option>
             {vessels?.map((vessel: any) => (
               <option key={vessel.id} value={vessel.id}>
                 {vessel.name}
@@ -208,7 +208,7 @@ export default function EngineLogPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tarih <span className="text-red-500">*</span>
+            Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -222,7 +222,7 @@ export default function EngineLogPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Saat <span className="text-red-500">*</span>
+          Time <span className="text-red-500">*</span>
         </label>
         <input
           type="time"
@@ -236,7 +236,7 @@ export default function EngineLogPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Motor Saatleri
+            Engine Hours
           </label>
           <input
             type="number"
@@ -248,7 +248,7 @@ export default function EngineLogPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Devir Sayısı (RPM)
+            RPM
           </label>
           <input
             type="number"
@@ -263,7 +263,7 @@ export default function EngineLogPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Yakıt Seviyesi (%)
+            Fuel Level (%)
           </label>
           <input
             type="number"
@@ -275,7 +275,7 @@ export default function EngineLogPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Yağ Basıncı (bar)
+            Oil Pressure (bar)
           </label>
           <input
             type="number"
@@ -290,7 +290,7 @@ export default function EngineLogPage() {
       <div className="grid grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Su Sıcaklığı (°C)
+            Water Temperature (°C)
           </label>
           <input
             type="number"
@@ -302,7 +302,7 @@ export default function EngineLogPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Egzoz Sıcaklığı (°C)
+            Exhaust Temperature (°C)
           </label>
           <input
             type="number"
@@ -314,7 +314,7 @@ export default function EngineLogPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Yağ Sıcaklığı (°C)
+            Oil Temperature (°C)
           </label>
           <input
             type="number"
@@ -328,7 +328,7 @@ export default function EngineLogPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Yük Yüzdesi (%)
+          Load Percentage (%)
         </label>
         <input
           type="number"
@@ -343,39 +343,39 @@ export default function EngineLogPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Alarmlar
+          Alarms
         </label>
         <textarea
           value={formData.alarms}
           onChange={(e) => setFormData({ ...formData, alarms: e.target.value })}
           rows={2}
-          placeholder="Varsa alarmlar..."
+          placeholder="Any alarms..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Bakım Notları
+          Maintenance Notes
         </label>
         <textarea
           value={formData.maintenanceNotes}
           onChange={(e) => setFormData({ ...formData, maintenanceNotes: e.target.value })}
           rows={2}
-          placeholder="Bakım notları..."
+          placeholder="Maintenance notes..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Notlar
+          Remarks
         </label>
         <textarea
           value={formData.remarks}
           onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
           rows={2}
-          placeholder="Ek notlar..."
+          placeholder="Additional notes..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
@@ -394,7 +394,7 @@ export default function EngineLogPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -403,11 +403,11 @@ export default function EngineLogPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -418,9 +418,9 @@ export default function EngineLogPage() {
       {/* Header with Create Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Makine Jurnali</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Engine Logbook</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Günlük makine dairesi kayıtları ve parametre takibi
+            Daily engine room records and parameter tracking
           </p>
         </div>
         <div className="flex items-center space-x-4">
@@ -438,7 +438,7 @@ export default function EngineLogPage() {
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Yeni Kayıt
+            New Entry
           </button>
         </div>
       </div>
@@ -447,7 +447,7 @@ export default function EngineLogPage() {
       {chartData.length > 0 && (
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-            Parametre Trendleri
+            Parameter Trends
           </h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
@@ -456,8 +456,8 @@ export default function EngineLogPage() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="temperature" stroke="#3b82f6" name="Su Sıcaklığı (°C)" />
-              <Line type="monotone" dataKey="pressure" stroke="#10b981" name="Yağ Basıncı (bar)" />
+              <Line type="monotone" dataKey="temperature" stroke="#3b82f6" name="Water Temperature (°C)" />
+              <Line type="monotone" dataKey="pressure" stroke="#10b981" name="Oil Pressure (bar)" />
               <Line type="monotone" dataKey="rpm" stroke="#f59e0b" name="RPM" />
             </LineChart>
           </ResponsiveContainer>
@@ -488,12 +488,12 @@ export default function EngineLogPage() {
                           {log.waterTemperature && (
                             <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
                               <TrendingUp className="h-3 w-3 mr-1" />
-                              Su: {log.waterTemperature}°C
+                              Water: {log.waterTemperature}°C
                             </div>
                           )}
                           {log.oilPressure && (
                             <div className="text-xs text-gray-500 dark:text-gray-400">
-                              Yağ: {log.oilPressure} bar
+                              Oil: {log.oilPressure} bar
                             </div>
                           )}
                         </div>
@@ -513,14 +513,14 @@ export default function EngineLogPage() {
                       <button
                         onClick={() => handleEdit(log)}
                         className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
+                        title="Edit"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(log.id)}
                         className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
+                        title="Delete"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -534,10 +534,10 @@ export default function EngineLogPage() {
           <div className="px-4 py-12 text-center">
             <Wrench className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Makine jurnal kaydı bulunamadı
+              No engine log entries found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {formatDate(selectedDate)} tarihi için henüz kayıt eklenmemiş.
+              No entries added yet for {formatDate(selectedDate)}.
             </p>
           </div>
         )}
@@ -548,7 +548,7 @@ export default function EngineLogPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yeni Makine Jurnal Kaydı</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Engine Log Entry</h3>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -569,7 +569,7 @@ export default function EngineLogPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Makine Jurnal Kaydı Düzenle</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Edit Engine Log Entry</h3>
               <button
                 onClick={() => {
                   setIsEditModalOpen(false);

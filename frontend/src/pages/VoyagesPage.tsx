@@ -126,13 +126,13 @@ export default function VoyagesPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu seferi silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this voyage?')) {
       deleteMutation.mutate(id);
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getStatusColor = (status: string) => {
@@ -152,7 +152,7 @@ export default function VoyagesPage() {
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Gemi <span className="text-red-500">*</span>
+          Vessel <span className="text-red-500">*</span>
         </label>
         <select
           required
@@ -160,7 +160,7 @@ export default function VoyagesPage() {
           onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         >
-          <option value="">Gemi Seçin</option>
+          <option value="">Select Vessel</option>
           {vessels?.map((vessel: any) => (
             <option key={vessel.id} value={vessel.id}>
               {vessel.name}
@@ -172,22 +172,22 @@ export default function VoyagesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Durum
+            Status
           </label>
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="PLANNED">Planlandı</option>
-            <option value="IN_PROGRESS">Devam Ediyor</option>
-            <option value="COMPLETED">Tamamlandı</option>
-            <option value="CANCELLED">İptal Edildi</option>
+            <option value="PLANNED">Planned</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="CANCELLED">Cancelled</option>
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Başlangıç Tarihi <span className="text-red-500">*</span>
+            Start Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -201,7 +201,7 @@ export default function VoyagesPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Bitiş Tarihi
+          End Date
         </label>
         <input
           type="date"
@@ -214,7 +214,7 @@ export default function VoyagesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Çıkış Limanı
+            Origin Port
           </label>
           <input
             type="text"
@@ -225,7 +225,7 @@ export default function VoyagesPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Varış Limanı
+            Destination Port
           </label>
           <input
             type="text"
@@ -239,7 +239,7 @@ export default function VoyagesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Mesafe (Deniz Mili)
+            Distance (Nautical Miles)
           </label>
           <input
             type="number"
@@ -251,7 +251,7 @@ export default function VoyagesPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tüketilen Yakıt (Litre)
+            Fuel Consumed (Liters)
           </label>
           <input
             type="number"
@@ -277,7 +277,7 @@ export default function VoyagesPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -286,11 +286,11 @@ export default function VoyagesPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -301,9 +301,9 @@ export default function VoyagesPage() {
       {/* Header with Create Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Seferler</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Voyages</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Sefer planlama ve takibi
+            Voyage planning and tracking
           </p>
         </div>
         <button
@@ -311,7 +311,7 @@ export default function VoyagesPage() {
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Yeni Sefer
+          New Voyage
         </button>
       </div>
 
@@ -323,25 +323,25 @@ export default function VoyagesPage() {
               <thead className="bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
-                    <span className="sr-only">İkon</span>
+                    <span className="sr-only">Icon</span>
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[150px]">
-                    Sefer No
+                    Voyage No
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[300px]">
-                    Gemi / Rota
+                    Vessel / Route
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[220px]">
-                    Tarihler
+                    Dates
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
-                    Maliyet
+                    Cost
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
-                    Durum
+                    Status
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
-                    <span className="sr-only">İşlemler</span>
+                    <span className="sr-only">Actions</span>
                   </th>
                 </tr>
               </thead>
@@ -353,7 +353,7 @@ export default function VoyagesPage() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="text-sm font-medium text-gray-900 dark:text-white truncate max-w-[150px]">
-                        {voyage.voyageNumber || `Sefer #${voyage.id.slice(0, 8)}`}
+                        {voyage.voyageNumber || `Voyage #${voyage.id.slice(0, 8)}`}
                       </div>
                     </td>
                     <td className="px-4 py-4">
@@ -363,11 +363,11 @@ export default function VoyagesPage() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Başlangıç: {formatDate(voyage.startDate)}
+                        Start: {formatDate(voyage.startDate)}
                       </div>
                       {voyage.endDate && (
                         <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          Bitiş: {formatDate(voyage.endDate)}
+                          End: {formatDate(voyage.endDate)}
                         </div>
                       )}
                     </td>
@@ -382,11 +382,11 @@ export default function VoyagesPage() {
                     <td className="px-4 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${getStatusColor(voyage.status)}`}>
                         {voyage.status === 'COMPLETED'
-                          ? 'Tamamlandı'
+                          ? 'Completed'
                           : voyage.status === 'IN_PROGRESS'
-                          ? 'Devam Ediyor'
+                          ? 'In Progress'
                           : voyage.status === 'PLANNED'
-                          ? 'Planlandı'
+                          ? 'Planned'
                           : voyage.status}
                       </span>
                     </td>
@@ -395,14 +395,14 @@ export default function VoyagesPage() {
                         <button
                           onClick={() => handleEdit(voyage)}
                           className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                          title="Düzenle"
+                          title="Edit"
                         >
                           <Edit className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(voyage.id)}
                           className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                          title="Sil"
+                          title="Delete"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -417,10 +417,10 @@ export default function VoyagesPage() {
           <div className="px-4 py-12 text-center">
             <Ship className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Sefer bulunamadı
+              No voyages found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Henüz sefer eklenmemiş.
+              No voyages added yet.
             </p>
           </div>
         )}
@@ -431,7 +431,7 @@ export default function VoyagesPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yeni Sefer</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Voyage</h3>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -452,7 +452,7 @@ export default function VoyagesPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Sefer Düzenle</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Edit Voyage</h3>
               <button
                 onClick={() => {
                   setIsEditModalOpen(false);

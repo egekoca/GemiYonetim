@@ -159,7 +159,7 @@ export default function DocumentsPage() {
   const paginatedDocuments = filteredAndSortedDocuments.slice(startIndex, endIndex);
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   return (
@@ -167,9 +167,9 @@ export default function DocumentsPage() {
       {/* Header with Upload Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Dokümanlar</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Documents</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Tüm dokümanların listesi
+            List of all documents
           </p>
         </div>
         <button
@@ -177,7 +177,7 @@ export default function DocumentsPage() {
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <Upload className="h-4 w-4 mr-2" />
-          Yeni Doküman Yükle
+          Upload New Document
         </button>
       </div>
 
@@ -190,7 +190,7 @@ export default function DocumentsPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Doküman adı, açıklama, kategori veya gemi ara..."
+                placeholder="Search document name, description, category or vessel..."
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
@@ -212,7 +212,7 @@ export default function DocumentsPage() {
               }}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
             >
-              <option value="all">Tüm Durumlar</option>
+              <option value="all">All Statuses</option>
               <option value="APPROVED">Onaylandı</option>
               <option value="PENDING_APPROVAL">Onay Bekliyor</option>
               <option value="DRAFT">Taslak</option>
@@ -230,7 +230,7 @@ export default function DocumentsPage() {
               }}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
             >
-              <option value="all">Tüm Kategoriler</option>
+              <option value="all">All Categories</option>
               {categories?.map((cat: any) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -250,8 +250,8 @@ export default function DocumentsPage() {
               }}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-select"
             >
-              <option value="createdAt-desc">Tarih (Yeni)</option>
-              <option value="createdAt-asc">Tarih (Eski)</option>
+              <option value="createdAt-desc">Date (Newest)</option>
+              <option value="createdAt-asc">Date (Oldest)</option>
               <option value="title-asc">İsim (A-Z)</option>
               <option value="title-desc">İsim (Z-A)</option>
             </select>
@@ -278,7 +278,7 @@ export default function DocumentsPage() {
 
       {/* Results Count */}
       <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        Toplam {filteredAndSortedDocuments.length} doküman bulundu
+        Total {filteredAndSortedDocuments.length} documents found
       </div>
 
       {/* Documents List */}
@@ -289,19 +289,19 @@ export default function DocumentsPage() {
               <thead className="bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
-                    <span className="sr-only">İkon</span>
+                    <span className="sr-only">Icon</span>
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[250px]">
-                    Doküman
+                    Document
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[280px]">
-                    Kategori / Gemi / Tarih
+                    Category / Vessel / Date
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[140px]">
-                    Durum
+                    Status
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px]">
-                    <span className="sr-only">İşlemler</span>
+                    <span className="sr-only">Actions</span>
                   </th>
                 </tr>
               </thead>
@@ -332,9 +332,9 @@ export default function DocumentsPage() {
                         }`}
                       >
                         {doc.status === 'APPROVED'
-                          ? 'Onaylandı'
+                          ? 'Approved'
                           : doc.status === 'PENDING_APPROVAL'
-                          ? 'Onay Bekliyor'
+                          ? 'Pending Approval'
                           : doc.status}
                       </span>
                     </td>
@@ -342,13 +342,13 @@ export default function DocumentsPage() {
                       <div className="flex items-center justify-end space-x-2">
                         <button
                           className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-                          title="Görüntüle"
+                          title="View"
                         >
                           <Eye className="h-4 w-4" />
                         </button>
                         <button
                           className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-                          title="İndir"
+                          title="Download"
                         >
                           <Download className="h-4 w-4" />
                         </button>
@@ -363,12 +363,12 @@ export default function DocumentsPage() {
           <div className="px-4 py-12 text-center">
             <FileText className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Doküman bulunamadı
+              No documents found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {searchTerm || statusFilter !== 'all' || categoryFilter !== 'all'
-                ? 'Arama kriterlerinize uygun doküman bulunamadı.'
-                : 'Henüz doküman yüklenmemiş.'}
+                ? 'No documents match your search criteria.'
+                : 'No documents uploaded yet.'}
             </p>
           </div>
         )}
@@ -383,14 +383,14 @@ export default function DocumentsPage() {
               disabled={currentPage === 1}
               className="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Önceki
+              Previous
             </button>
             <button
               onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
               className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sonraki
+              Next
             </button>
           </div>
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
@@ -459,7 +459,7 @@ export default function DocumentsPage() {
           <div className="relative top-0 md:top-20 mx-auto p-3 md:p-5 border w-full max-w-md md:w-96 shadow-lg rounded-md bg-white dark:bg-gray-800 m-2 md:m-0">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Yeni Doküman Yükle
+                Upload New Document
               </h3>
               <button
                 onClick={() => setIsUploadModalOpen(false)}
@@ -472,7 +472,7 @@ export default function DocumentsPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Başlık <span className="text-red-500">*</span>
+                  Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -485,7 +485,7 @@ export default function DocumentsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Açıklama
+                  Description
                 </label>
                 <textarea
                   value={uploadForm.description}
@@ -497,7 +497,7 @@ export default function DocumentsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Gemi <span className="text-red-500">*</span>
+                  Vessel <span className="text-red-500">*</span>
                 </label>
                 <select
                   required
@@ -505,7 +505,7 @@ export default function DocumentsPage() {
                   onChange={(e) => setUploadForm({ ...uploadForm, vesselId: e.target.value })}
                   className="modal-select"
                 >
-                  <option value="">Gemi Seçin</option>
+                  <option value="">Select Vessel</option>
                   {vessels?.map((vessel: any) => (
                     <option key={vessel.id} value={vessel.id}>
                       {vessel.name}
@@ -516,7 +516,7 @@ export default function DocumentsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Kategori <span className="text-red-500">*</span>
+                  Category <span className="text-red-500">*</span>
                 </label>
                 <select
                   required
@@ -524,7 +524,7 @@ export default function DocumentsPage() {
                   onChange={(e) => setUploadForm({ ...uploadForm, categoryId: e.target.value })}
                   className="modal-select"
                 >
-                  <option value="">Kategori Seçin</option>
+                  <option value="">Select Category</option>
                   {categories?.map((category: any) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
@@ -536,7 +536,7 @@ export default function DocumentsPage() {
               {/* Drag & Drop Area */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Dosya <span className="text-red-500">*</span>
+                  File <span className="text-red-500">*</span>
                 </label>
                 <div
                   onDragEnter={handleDrag}
@@ -561,18 +561,18 @@ export default function DocumentsPage() {
                         onClick={() => setUploadForm({ ...uploadForm, file: null })}
                         className="text-sm text-red-600 hover:text-red-700 dark:text-red-400"
                       >
-                        Kaldır
+                        Remove
                       </button>
                     </div>
                   ) : (
                     <div>
                       <Upload className="mx-auto h-8 w-8 text-gray-400" />
                       <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                        Dosyayı buraya sürükleyin veya
+                        Drag file here or
                       </p>
                       <label className="mt-2 inline-block">
                         <span className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 cursor-pointer">
-                          dosya seçin
+                          select file
                         </span>
                         <input
                           type="file"
@@ -592,14 +592,14 @@ export default function DocumentsPage() {
                   onClick={() => setIsUploadModalOpen(false)}
                   className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  İptal
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={!uploadForm.file || !uploadForm.title || !uploadForm.vesselId || !uploadForm.categoryId || uploadMutation.isPending}
                   className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {uploadMutation.isPending ? 'Yükleniyor...' : 'Yükle'}
+                  {uploadMutation.isPending ? 'Uploading...' : 'Upload'}
                 </button>
               </div>
             </form>

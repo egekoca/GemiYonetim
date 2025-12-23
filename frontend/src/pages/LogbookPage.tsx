@@ -154,19 +154,19 @@ export default function LogbookPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu jurnal kaydını silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to delete this logbook entry?')) {
       deleteMutation.mutate(id);
     }
   };
 
   const handleSign = (id: string) => {
-    if (confirm('Bu jurnal kaydını imzalamak istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to sign this logbook entry?')) {
       signMutation.mutate(id);
     }
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const renderForm = (onSubmit: (e: React.FormEvent) => void, isEdit: boolean) => (
@@ -174,7 +174,7 @@ export default function LogbookPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Gemi <span className="text-red-500">*</span>
+            Vessel <span className="text-red-500">*</span>
           </label>
           <select
             required
@@ -182,7 +182,7 @@ export default function LogbookPage() {
             onChange={(e) => setFormData({ ...formData, vesselId: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           >
-            <option value="">Gemi Seçin</option>
+            <option value="">Select Vessel</option>
             {vessels?.map((vessel: any) => (
               <option key={vessel.id} value={vessel.id}>
                 {vessel.name}
@@ -192,7 +192,7 @@ export default function LogbookPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tarih <span className="text-red-500">*</span>
+            Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -206,7 +206,7 @@ export default function LogbookPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Saat <span className="text-red-500">*</span>
+          Time <span className="text-red-500">*</span>
         </label>
         <input
           type="time"
@@ -220,7 +220,7 @@ export default function LogbookPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Enlem
+            Latitude
           </label>
           <input
             type="number"
@@ -232,7 +232,7 @@ export default function LogbookPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Boylam
+            Longitude
           </label>
           <input
             type="number"
@@ -247,25 +247,25 @@ export default function LogbookPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Hava Durumu
+            Weather
           </label>
           <input
             type="text"
             value={formData.weather}
             onChange={(e) => setFormData({ ...formData, weather: e.target.value })}
-            placeholder="Örn: Açık, Bulutlu, Yağmurlu"
+            placeholder="E.g.: Clear, Cloudy, Rainy"
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Deniz Durumu
+            Sea State
           </label>
           <input
             type="text"
             value={formData.seaState}
             onChange={(e) => setFormData({ ...formData, seaState: e.target.value })}
-            placeholder="Örn: Sakin, Orta, Yüksek"
+            placeholder="E.g.: Calm, Moderate, High"
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
@@ -274,19 +274,19 @@ export default function LogbookPage() {
       <div className="grid grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Rüzgar Yönü
+            Wind Direction
           </label>
           <input
             type="text"
             value={formData.windDirection}
             onChange={(e) => setFormData({ ...formData, windDirection: e.target.value })}
-            placeholder="Örn: N, NE, E"
+            placeholder="E.g.: N, NE, E"
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Rüzgar Hızı (knot)
+            Wind Speed (knots)
           </label>
           <input
             type="number"
@@ -298,7 +298,7 @@ export default function LogbookPage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Görüş Mesafesi (NM)
+            Visibility (NM)
           </label>
           <input
             type="number"
@@ -312,26 +312,26 @@ export default function LogbookPage() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Olaylar
+          Events
         </label>
         <textarea
           value={formData.events}
           onChange={(e) => setFormData({ ...formData, events: e.target.value })}
           rows={3}
-          placeholder="Gün içinde gerçekleşen önemli olaylar..."
+          placeholder="Important events that occurred during the day..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Notlar
+          Remarks
         </label>
         <textarea
           value={formData.remarks}
           onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
           rows={2}
-          placeholder="Ek notlar..."
+          placeholder="Additional notes..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 modal-input"
         />
       </div>
@@ -350,7 +350,7 @@ export default function LogbookPage() {
           }}
           className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          İptal
+          Cancel
         </button>
         <button
           type="submit"
@@ -359,11 +359,11 @@ export default function LogbookPage() {
         >
           {isEdit
             ? updateMutation.isPending
-              ? 'Güncelleniyor...'
-              : 'Güncelle'
+              ? 'Updating...'
+              : 'Update'
             : createMutation.isPending
-            ? 'Kaydediliyor...'
-            : 'Kaydet'}
+            ? 'Saving...'
+            : 'Save'}
         </button>
       </div>
     </form>
@@ -374,9 +374,9 @@ export default function LogbookPage() {
       {/* Header with Create Button */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Gemi Jurnali</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Ship Logbook</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Günlük gemi jurnali kayıtları (SOLAS gereksinimi)
+            Daily ship logbook entries (SOLAS requirement)
           </p>
         </div>
         <div className="flex items-center space-x-4">
@@ -394,7 +394,7 @@ export default function LogbookPage() {
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Yeni Kayıt
+            New Entry
           </button>
         </div>
       </div>
@@ -448,33 +448,33 @@ export default function LogbookPage() {
                     <div className="flex items-center space-x-2">
                       {entry.isSigned ? (
                         <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                          İmzalı
+                          Signed
                         </span>
                       ) : (
                         <span className="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
-                          İmzasız
+                          Unsigned
                         </span>
                       )}
                       {!entry.isSigned && (
                         <button
                           onClick={() => handleSign(entry.id)}
                           className="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                          title="İmzala"
+                          title="Sign"
                         >
-                          İmzala
+                          Sign
                         </button>
                       )}
                       <button
                         onClick={() => handleEdit(entry)}
                         className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-                        title="Düzenle"
+                        title="Edit"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(entry.id)}
                         className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
-                        title="Sil"
+                        title="Delete"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -488,10 +488,10 @@ export default function LogbookPage() {
           <div className="px-4 py-12 text-center">
             <FileText className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Jurnal kaydı bulunamadı
+              No logbook entries found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {formatDate(selectedDate)} tarihi için henüz kayıt eklenmemiş.
+              No entries added yet for {formatDate(selectedDate)}.
             </p>
           </div>
         )}
@@ -502,7 +502,7 @@ export default function LogbookPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Yeni Jurnal Kaydı</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">New Logbook Entry</h3>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -523,7 +523,7 @@ export default function LogbookPage() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-0 md:top-10 mx-auto p-3 md:p-5 border w-full max-w-2xl m-2 md:m-0 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Jurnal Kaydı Düzenle</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Edit Logbook Entry</h3>
               <button
                 onClick={() => {
                   setIsEditModalOpen(false);

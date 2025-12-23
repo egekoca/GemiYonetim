@@ -74,7 +74,7 @@ export default function CertificatesPage() {
   };
 
   if (isLoading) {
-    return <div className="text-center py-12">Yükleniyor...</div>;
+    return <div className="text-center py-12">Loading...</div>;
   }
 
   const getStatusIcon = (status: string) => {
@@ -110,7 +110,7 @@ export default function CertificatesPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Sertifika adı veya yetkili makam ara..."
+                placeholder="Search certificate name or issuing authority..."
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
@@ -132,10 +132,10 @@ export default function CertificatesPage() {
               }}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
             >
-              <option value="all">Tüm Durumlar</option>
-              <option value="active">Aktif</option>
-              <option value="warning">Yakında Dolacak</option>
-              <option value="expired">Süresi Dolmuş</option>
+              <option value="all">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="warning">Expiring Soon</option>
+              <option value="expired">Expired</option>
             </select>
           </div>
 
@@ -150,16 +150,16 @@ export default function CertificatesPage() {
               }}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
             >
-              <option value="expiryDate-asc">Bitiş Tarihi (Artan)</option>
-              <option value="expiryDate-desc">Bitiş Tarihi (Azalan)</option>
-              <option value="title-asc">İsim (A-Z)</option>
-              <option value="title-desc">İsim (Z-A)</option>
+              <option value="expiryDate-asc">Expiry Date (Ascending)</option>
+              <option value="expiryDate-desc">Expiry Date (Descending)</option>
+              <option value="title-asc">Name (A-Z)</option>
+              <option value="title-desc">Name (Z-A)</option>
             </select>
           </div>
 
           {/* Items Per Page */}
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Sayfa başına:</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">Per page:</span>
             <select
               value={itemsPerPage}
               onChange={(e) => {
@@ -178,7 +178,7 @@ export default function CertificatesPage() {
 
       {/* Results Count */}
       <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        Toplam {filteredAndSortedCertificates.length} sertifika bulundu
+        Total {filteredAndSortedCertificates.length} certificates found
       </div>
 
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
@@ -188,16 +188,16 @@ export default function CertificatesPage() {
               <thead className="bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-12">
-                    <span className="sr-only">İkon</span>
+                    <span className="sr-only">Icon</span>
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
-                    Sertifika
+                    Certificate
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[250px]">
-                    Yetkili Makam / Bitiş Tarihi
+                    Issuing Authority / Expiry Date
                   </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[180px]">
-                    Durum
+                    Status
                   </th>
                 </tr>
               </thead>
@@ -217,7 +217,7 @@ export default function CertificatesPage() {
                       </td>
                       <td className="px-4 py-4">
                         <div className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[250px]">
-                          {cert.issuingAuthority} | Bitiş: {formatDate(cert.expiryDate)}
+                          {cert.issuingAuthority} | Expiry: {formatDate(cert.expiryDate)}
                         </div>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
@@ -225,10 +225,10 @@ export default function CertificatesPage() {
                           {getStatusIcon(status)}
                           <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${getStatusColor(status)}`}>
                             {status === 'expired' 
-                              ? 'Süresi Dolmuş' 
+                              ? 'Expired' 
                               : status === 'warning'
-                              ? `${daysUntil} gün kaldı`
-                              : 'Aktif'}
+                              ? `${daysUntil} days left`
+                              : 'Active'}
                           </span>
                         </div>
                       </td>
@@ -242,10 +242,10 @@ export default function CertificatesPage() {
           <div className="px-4 py-12 text-center">
             <FileCheck className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-              Sertifika bulunamadı
+              No certificates found
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Arama kriterlerinize uygun sertifika bulunamadı.
+              No certificates match your search criteria.
             </p>
           </div>
         )}
@@ -260,14 +260,14 @@ export default function CertificatesPage() {
               disabled={currentPage === 1}
               className="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Önceki
+              Previous
             </button>
             <button
               onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
               className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sonraki
+              Next
             </button>
           </div>
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
