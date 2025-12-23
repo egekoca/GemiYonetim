@@ -363,13 +363,13 @@ export default function DocumentsPage() {
                           className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                           title="View"
                         >
-                          <Eye className="h-4 w-4" />
+                          <Eye className="h-4 w-4 text-blue-500 dark:text-blue-400" />
                         </button>
                         <button
                           className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                           title="Download"
                         >
-                          <Download className="h-4 w-4" />
+                          <Download className="h-4 w-4 text-green-500 dark:text-green-400" />
                         </button>
                       </div>
                     </td>
